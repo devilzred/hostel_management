@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hostel_app/screens/loginwarden.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'login.dart'; // Import the LoginScreen widget
+import 'loginstudent.dart'; // Import the LoginScreen widget
 
-void main() => runApp(
-      MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: LoginPage(),
-      ),
-    );
+// void main() => runApp(
+//       MaterialApp(
+//         debugShowCheckedModeBanner: false,
+//         home: LoginPage(),
+//       ),
+//     );
 
 class LoginPage extends StatelessWidget {
   @override
@@ -135,7 +136,7 @@ class LoginPage extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => LoginPage(),
+                                builder: (context) => LoginPageStd(),
                               ),
                             );
                              SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -167,7 +168,7 @@ class LoginPage extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => LoginPage(),
+                                builder: (context) => LoginPageWadern(),
                               ),
                             );
                              SharedPreferences prefs = await SharedPreferences.getInstance();

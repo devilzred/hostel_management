@@ -8,12 +8,12 @@ import 'package:hostel_app/screens/admin.dart';
 import 'package:hostel_app/screens/student.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPageStd extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPageStd> {
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _studentIdController = TextEditingController();
   bool _isButtonEnabled = false;
@@ -198,28 +198,20 @@ class _LoginPageState extends State<LoginPage> {
   try {
     DocumentSnapshot snapshot =
         await FirebaseFirestore.instance.collection('student').doc(studentId).get();
-    Map<String, dynamic>? studentData = snapshot.data() as Map<String, dynamic>?;
+    
 
-    if (studentData != null && studentData['mobile'] == phoneNumber) {
+    if (snapshot['studentId'] == studentId && snapshot['mobile'] == phoneNumber) {
       // Login successful, navigate to the appropriate screen based on the user role
       SharedPreferences prefs = await SharedPreferences.getInstance();
      prefs.setString("ID",studentId);
-
-      if(studentId == 'Hadil'  && '8281529106' == phoneNumber){
-  Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => AdminHomeScreen()),
-        );
-        prefs.setString("ust",'admin');
-}
-      else {
+     
         // Login successful, navigate to the next screen
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
-        );
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen()),
+            (route) => false);
         prefs.setString("ust",'student');
-      } }else {
+      }else {
       // Show error message as a Snackbar
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -231,7 +223,7 @@ class _LoginPageState extends State<LoginPage> {
     // Show error message as a Snackbar
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text("An error occurred during login $e"),
+        content: Text("An error occurred during login"),
       ),
     );
   }
