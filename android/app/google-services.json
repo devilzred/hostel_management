@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "771847613505",
+    "firebase_url": "https://hostel-58d31-default-rtdb.firebaseio.com",
+    "project_id": "hostel-58d31",
+    "storage_bucket": "hostel-58d31.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771847613505:android:0f88cb61bdbee5bc97aac0",
+        "android_client_info": {
+          "package_name": "com.example.hostel_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWS3_MrV5912h7VVZBd_JYHJSbc83MC3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
