@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AttendenceLog extends StatefulWidget {
@@ -29,7 +31,7 @@ class _AttendenceLogState extends State<AttendenceLog> {
     if (querySnapshot.docs.isNotEmpty) {
       var document = querySnapshot.docs.first;
 
-      return document['name'];
+      return "Name: "+document['name'];
     } else {
       return "Unknown";
     }
@@ -43,11 +45,27 @@ class _AttendenceLogState extends State<AttendenceLog> {
     );
   }
 
+   getStatuscolor(int status) {
+    if (status == 1) {
+      return Color.fromARGB(255, 193, 242, 147);
+    } else {
+      return const Color.fromARGB(255, 244, 186, 168);
+    }
+  }
+
   Widget getStatusIcon(int status) {
     if (status == 1) {
-      return Icon(Icons.check_circle, color: Colors.green);
+      return SvgPicture.asset(
+        "assets/images/login-svgrepo-com.svg",
+        width: 30,
+        color: Color.fromARGB(255, 10, 191, 16),
+      );
     } else {
-      return Icon(Icons.error, color: Colors.red);
+      return SvgPicture.asset(
+        "assets/images/logout-svgrepo-com.svg",
+        width: 30,
+        color: Color.fromARGB(255, 237, 13, 13),
+      );
     }
   }
 
@@ -59,7 +77,7 @@ class _AttendenceLogState extends State<AttendenceLog> {
     _isLoading = true;
     // Fetch data here
     // Once data is fetched, set _isLoading to false
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(milliseconds: 500), () {
       setState(() {
         _isLoading = false;
       });
@@ -99,8 +117,10 @@ class _AttendenceLogState extends State<AttendenceLog> {
           : Container(
               height: double.infinity,
               child: FirebaseAnimatedList(
+                // controller: controller,
                 query: _databaseReference,
                 itemBuilder: (
+                  
                   BuildContext context,
                   DataSnapshot snapshot,
                   Animation<double> _scrollDown,
@@ -109,23 +129,31 @@ class _AttendenceLogState extends State<AttendenceLog> {
                   Map attendance = snapshot.value as Map;
                   attendance['key'] = snapshot.key;
                   int status = attendance['status'] as int;
-
+                  
                   return ListTile(
-                    trailing: Text(attendance['time'].toString()),
-                    subtitle: Text(attendance['uid'].toString()),
-                    title: FutureBuilder<String>(
-                      future: NameFinder(attendance['uid'].toString()),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Text('Loading...'); // Placeholder while loading
-                        } else {
-                          return Text(snapshot.data ?? 'Unknown');
-                        }
-                      },
-                    ),
-                    leading: getStatusIcon(status),
-                  );
+                    
+                    horizontalTitleGap: 5,
+                    minVerticalPadding: 30,
+                      tileColor: getStatuscolor(status),
+                      trailing: Text(attendance['time'].toString()),
+                      subtitle: Text("Card ID: "+attendance['uid'].toString()),
+                      title: FutureBuilder<String>(
+                        future: NameFinder(attendance['uid'].toString()),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Text(
+                                'Fetching...'); // Placeholder while loading
+                          } else {
+                            return Text(snapshot.data ?? 'Unknown', style: TextStyle( fontWeight: FontWeight.bold),);
+                          }
+                        },
+                      ),
+                      leading: Container(
+                        width: 50,
+                        height: 50,
+                        child: getStatusIcon(status),
+                      ));
                 },
               ),
             ),
