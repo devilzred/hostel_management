@@ -35,7 +35,7 @@ class LoginPage extends StatelessWidget {
                         Positioned(
                           left: 140,
                           width: 80,
-                          height: 150,
+                          height: 200,
                           child: Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
@@ -48,7 +48,7 @@ class LoginPage extends StatelessWidget {
                           right: 40,
                           top: 40,
                           width: 80,
-                          height: 150,
+                          height: 200,
                           child: Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
@@ -113,7 +113,8 @@ class LoginPage extends StatelessWidget {
                           child: Column(
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.fromLTRB(65.0, 0.0, 65.0, 12.0),
+                                padding:
+                                    EdgeInsets.fromLTRB(65.0, 0.0, 65.0, 12.0),
                                 decoration: BoxDecoration(
                                   border: Border(
                                     bottom: BorderSide.none,
@@ -131,7 +132,7 @@ class LoginPage extends StatelessWidget {
                           height: 30,
                         ),
                         GestureDetector(
-                          onTap: () async{
+                          onTap: () async {
                             // Navigate to login.dart when "Login as student" is clicked
                             Navigator.push(
                               context,
@@ -139,8 +140,9 @@ class LoginPage extends StatelessWidget {
                                 builder: (context) => LoginPageStd(),
                               ),
                             );
-                             SharedPreferences prefs = await SharedPreferences.getInstance();
-                    prefs.clear();
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            prefs.clear();
                           },
                           child: Container(
                             height: 50,
@@ -163,7 +165,7 @@ class LoginPage extends StatelessWidget {
                           height: 10, // Adjust the spacing between the buttons
                         ),
                         GestureDetector(
-                          onTap: () async{
+                          onTap: () async {
                             // Navigate to login.dart when "Login as student" is clicked
                             Navigator.push(
                               context,
@@ -171,14 +173,16 @@ class LoginPage extends StatelessWidget {
                                 builder: (context) => LoginPageWadern(),
                               ),
                             );
-                             SharedPreferences prefs = await SharedPreferences.getInstance();
-                    prefs.clear();
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            prefs.clear();
                           },
                           child: Container(
                             height: 50,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Color.fromRGBO(142, 148, 255, 1),// Change the color as needed
+                              color: Color.fromRGBO(142, 148, 255,
+                                  1), // Change the color as needed
                             ),
                             child: Center(
                               child: Text(
@@ -216,10 +220,8 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
-          
         ],
       ),
     );
   }
 }
-

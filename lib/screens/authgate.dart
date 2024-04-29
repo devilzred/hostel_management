@@ -23,6 +23,8 @@ class _AuthGateState extends State<AuthGate> {
   }
 
   Future<void> _checkLoginStatus() async {
+    
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? username = prefs.getString("ust");
     if (username != null) {

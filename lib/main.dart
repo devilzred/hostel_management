@@ -5,8 +5,11 @@ import 'package:hostel_app/screens/admin.dart';
 import 'package:hostel_app/screens/loginstudent.dart';
 import 'package:hostel_app/screens/loginmain.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'firebase_options.dart';
 import 'package:hostel_app/screens/student.dart';
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +29,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
       return MaterialApp(
+        debugShowCheckedModeBanner: false,
       // Define the home property based on login status
       home: const AuthGate(),
       theme: ThemeData(

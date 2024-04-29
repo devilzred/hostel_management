@@ -50,6 +50,9 @@ dependencies:
   doc_widget: ^0.4.0
   shared_preferences: ^2.2.3
   shared_preferences_riverpod: ^0.3.0
+  firebase_database: ^10.5.4
+  direct_flutter_sms: ^1.0.1
+  
 
 
 dev_dependencies:

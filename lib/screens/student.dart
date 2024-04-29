@@ -378,8 +378,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 },
                                 child: Container(
-                                  width: 210,
-                                  height: 200,
+                                  width: 150,
+                                  height: 150,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
@@ -424,8 +424,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 },
                                 child: Container(
-                                  width: 210,
-                                  height: 200,
+                                  width: 150,
+                                  height: 150,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
@@ -476,8 +476,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 },
                                 child: Container(
-                                  width: 210,
-                                  height: 200,
+                                  width: 150,
+                                  height: 150,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
@@ -523,8 +523,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 },
                                 child: Container(
-                                  width: 210,
-                                  height: 200,
+                                  width: 150,
+                                  height: 150,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
@@ -575,8 +575,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 },
                                 child: Container(
-                                  width: 210,
-                                  height: 200,
+                                  width: 150,
+                                  height: 150,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
@@ -621,8 +621,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 },
                                 child: Container(
-                                  width: 210,
-                                  height: 200,
+                                  width: 150,
+                                  height: 150,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
