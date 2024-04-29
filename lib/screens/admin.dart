@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hostel_app/screens/AuthGate.dart';
 import 'package:hostel_app/screens/admin/attendace.dart';
 import 'package:hostel_app/screens/admin/attendance_log.dart';
+import 'package:hostel_app/screens/admin/livelog.dart';
 import 'package:hostel_app/screens/loginstudent.dart';
 import 'package:hostel_app/screens/admin/addstd.dart';
 import 'package:hostel_app/screens/admin/viewstd.dart';
@@ -16,7 +19,6 @@ import 'package:hostel_app/screens/student/contacts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminHomeScreen extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,7 +105,6 @@ class AdminHomeScreen extends StatelessWidget {
             ),
             // Main content
             Container(
-              
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Color(0xFFF0F0F0), Color(0xFFFAFAFA)],
@@ -172,12 +173,10 @@ class AdminHomeScreen extends StatelessWidget {
                                   icon: Icon(Icons.library_add_check))
                             ],
                           ),
-                          
                           SizedBox(height: 30),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              
                               GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -271,11 +270,54 @@ class AdminHomeScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: 20),
-                         
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LiveLog()),
+                                  );
+                                },
+                                child: Container(
+                                  width: 150,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.2),
+                                        spreadRadius: 3,
+                                        blurRadius: 10,
+                                        offset: Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.screenshot_monitor,
+                                        size: 80,
+                                        color: Color(0xff7364e3),
+                                      ),
+                                      SizedBox(height: 10),
+                                      Text(
+                                        'Live Log',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xff7364e3),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 20),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -321,13 +363,18 @@ class AdminHomeScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(width: 20),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
                               GestureDetector(
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            ViewStudentPage()),
+                                        builder: (context) => Attendance()),
                                   );
                                 },
                                 child: Container(
@@ -366,12 +413,7 @@ class AdminHomeScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
+                              SizedBox(width: 20),
                               // Second row of containers
                               GestureDetector(
                                 onTap: () {},
@@ -413,58 +455,67 @@ class AdminHomeScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(width: 20),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ManageRoomsPage()),
-                                  );
-                                },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
+
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ManageRoomsPage()),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: 150,
+                                      height: 150,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.2),
+                                            spreadRadius: 3,
+                                            blurRadius: 10,
+                                            offset: Offset(0, 3),
+                                          ),
+                                        ],
                                       ),
-                                    ],
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.hotel_rounded,
+                                            size: 80,
+                                            color: Color(0xff7364e3),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            'Manage Rooms',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xff7364e3),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.hotel_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Manage Rooms',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                ],
                               ),
+                              SizedBox(height: 20),
+                              // Third row of containers
                             ],
                           ),
                           SizedBox(height: 20),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              // Third row of containers
                               GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -557,13 +608,42 @@ class AdminHomeScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                              // Second row of containers
+                              
+                              SizedBox(width: 20),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            UploadPhotoPage()),
+                                  );
+                                },
+                                child: Container(
+                                  width: 150,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.2),
+                                        spreadRadius: 3,
+                                        blurRadius: 10,
+                                        offset: Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(
+                            height: 20,
+                          ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              // Second row of containers
                               GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -616,7 +696,7 @@ class AdminHomeScreen extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            UploadPhotoPage()),
+                                            ImportantContactsScreen()),
                                   );
                                 },
                                 child: Container(
@@ -656,7 +736,7 @@ class AdminHomeScreen extends StatelessWidget {
                                 ),
                               ),
                             ],
-                          ),
+                          )
                         ],
                       ),
                     ),
