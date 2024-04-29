@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hostel_app/screens/admin.dart';
 import 'package:intl/intl.dart'; // Import the intl package for date formatting
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,9 +21,20 @@ class _AddStudentState extends State<AddPage> {
   final TextEditingController _passController = TextEditingController();
   DateTime? _selectedDate; // Declare a nullable DateTime variable
 
+  // String dropdownvalue = Text('12345678',style: GoogleFonts.poppins(
+  //                   // Replace 'YourFontFamily' with your desired font family
+  //                   fontWeight: FontWeight.bold,
+  //                   color: Color(0x8F7364E3), // Adjust the weight as needed
+  //                 ),).toString();
+
+  String dropdownvalue = '12345678';
   String? _selectedCollege;
   String? _selectedCourse;
   List<String>? _courseOptions;
+  var cardid = [
+    '12345678',
+    '87654321',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -73,11 +85,11 @@ class _AddStudentState extends State<AddPage> {
               ),
               child: TextField(
                 controller: _nameController,
-    style: GoogleFonts.poppins(
-      // Replace 'YourFontFamily' with your desired font family
-      fontWeight: FontWeight.bold,
-      color: Color(0xFF7364E3), // Adjust the text color
-    ),
+                style: GoogleFonts.poppins(
+                  // Replace 'YourFontFamily' with your desired font family
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF7364E3), // Adjust the text color
+                ),
                 decoration: InputDecoration(
                   border: InputBorder.none, // Remove default border
                   labelText: 'Name',
@@ -86,6 +98,51 @@ class _AddStudentState extends State<AddPage> {
                     fontWeight: FontWeight.bold, // Adjust the weight as needed
                   ),
                 ),
+              ),
+            ),
+            SizedBox(height: 10.0),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
+              margin: EdgeInsets.symmetric(vertical: 3.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Color(0xFFFFFFFF),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 5,
+                    blurRadius: 10,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: DropdownButtonFormField<String>(
+                style: TextStyle(
+                    color: Color.fromARGB(255, 115, 100, 227),
+                    fontWeight: FontWeight.w800,
+                    fontSize: 16),
+                value: dropdownvalue,
+                onChanged: (value) {
+                  setState(() {
+                    dropdownvalue != value;
+                  });
+                },
+                items: cardid.map((String items) {
+                  return DropdownMenuItem(
+                    value: items,
+                    child: Text(items),
+                  );
+                }).toList(),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  labelText: 'Card Id',
+                  labelStyle: GoogleFonts.poppins(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0x8F7364E3),
+                  ),
+                ),
+                isExpanded:
+                    true, // Set to true to show full text when dropdown is open
               ),
             ),
             SizedBox(height: 10.0),
@@ -107,11 +164,11 @@ class _AddStudentState extends State<AddPage> {
               ),
               child: TextField(
                 controller: _dobController,
-    style: GoogleFonts.poppins(
-      // Replace 'YourFontFamily' with your desired font family
-      fontWeight: FontWeight.bold,
-      color: Color(0xFF7364E3), // Adjust the text color
-    ),
+                style: GoogleFonts.poppins(
+                  // Replace 'YourFontFamily' with your desired font family
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF7364E3), // Adjust the text color
+                ),
                 readOnly: true, // Make the TextField read-only
                 onTap: () async {
                   final DateTime? pickedDate = await showDatePicker(
@@ -124,8 +181,8 @@ class _AddStudentState extends State<AddPage> {
                   if (pickedDate != null) {
                     setState(() {
                       _selectedDate = pickedDate;
-                      _dobController.text = DateFormat('dd-MM-yyyy').format(
-                          pickedDate); // Format the date without time
+                      _dobController.text = DateFormat('dd-MM-yyyy')
+                          .format(pickedDate); // Format the date without time
                     });
                   }
                 },
@@ -159,11 +216,11 @@ class _AddStudentState extends State<AddPage> {
               ),
               child: TextField(
                 controller: _mobileController,
-    style: GoogleFonts.poppins(
-      // Replace 'YourFontFamily' with your desired font family
-      fontWeight: FontWeight.bold,
-      color: Color(0xFF7364E3), // Adjust the text color
-    ),
+                style: GoogleFonts.poppins(
+                  // Replace 'YourFontFamily' with your desired font family
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF7364E3), // Adjust the text color
+                ),
                 decoration: InputDecoration(
                   border: InputBorder.none, // Remove default border
                   labelText: 'Mobile Number',
@@ -197,8 +254,7 @@ class _AddStudentState extends State<AddPage> {
                 onChanged: (value) {
                   setState(() {
                     _selectedCollege = value;
-                    if (_selectedCollege ==
-                        'Majlis Arts&Science College') {
+                    if (_selectedCollege == 'Majlis Arts&Science College') {
                       _courseOptions = [
                         'BA Multimedia',
                         'BA Mass Communication & Journalism',
@@ -237,7 +293,8 @@ class _AddStudentState extends State<AddPage> {
                         'Diploma Mechanical Engineering',
                       ];
                     }
-                    _selectedCourse = null; // Reset selected course when college changes
+                    _selectedCourse =
+                        null; // Reset selected course when college changes
                   });
                 },
                 items: [
@@ -245,7 +302,7 @@ class _AddStudentState extends State<AddPage> {
                     child: Text(
                       'Majlis Arts&Science College',
                       style: GoogleFonts.poppins(
-                        fontSize: 16,
+                        fontSize: 13,
                         fontWeight: FontWeight.bold,
                         color: Color(0xff7364e3),
                       ),
@@ -256,7 +313,7 @@ class _AddStudentState extends State<AddPage> {
                     child: Text(
                       'Majlis Polytechnic College',
                       style: GoogleFonts.poppins(
-                        fontSize: 16,
+                        fontSize: 13,
                         fontWeight: FontWeight.bold,
                         color: Color(0xff7364e3),
                       ),
@@ -271,19 +328,20 @@ class _AddStudentState extends State<AddPage> {
                     fontWeight: FontWeight.bold,
                     color: Color(0x8F7364E3), // Adjust the weight as needed
                   ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide.none),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide.none),
+                  enabledBorder:
+                      UnderlineInputBorder(borderSide: BorderSide.none),
+                  focusedBorder:
+                      UnderlineInputBorder(borderSide: BorderSide.none),
                 ),
-                style: TextStyle(color: Color(0xff7364e3)), // Customize text color
+                style:
+                    TextStyle(color: Color(0xff7364e3)), // Customize text color
               ),
             ),
             SizedBox(height: 10.0),
             if (_courseOptions != null)
               Container(
-              padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
-              margin: EdgeInsets.symmetric(vertical: 3.0),
+                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
+                margin: EdgeInsets.symmetric(vertical: 3.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   color: Color(0xFFFFFFFF),
@@ -324,7 +382,8 @@ class _AddStudentState extends State<AddPage> {
                       color: Color(0x8F7364E3),
                     ),
                   ),
-                  isExpanded: true, // Set to true to show full text when dropdown is open
+                  isExpanded:
+                      true, // Set to true to show full text when dropdown is open
                 ),
               ),
             SizedBox(height: 10.0),
@@ -346,11 +405,11 @@ class _AddStudentState extends State<AddPage> {
               ),
               child: TextField(
                 controller: _parentNameController,
-    style: GoogleFonts.poppins(
-      // Replace 'YourFontFamily' with your desired font family
-      fontWeight: FontWeight.bold,
-      color: Color(0xFF7364E3), // Adjust the text color
-    ),
+                style: GoogleFonts.poppins(
+                  // Replace 'YourFontFamily' with your desired font family
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF7364E3), // Adjust the text color
+                ),
                 decoration: InputDecoration(
                   border: InputBorder.none, // Remove default border
                   labelText: "Parent's Name",
@@ -366,38 +425,37 @@ class _AddStudentState extends State<AddPage> {
             Container(
               padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
               margin: EdgeInsets.symmetric(vertical: 3.0),
-  decoration: BoxDecoration(
-    // Border color
-    borderRadius: BorderRadius.circular(10.0),
-    color: Color(0xFFFFFFFF),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.grey.withOpacity(0.2),
-        spreadRadius: 5,
-        blurRadius: 10,
-        offset: Offset(0, 3),
-      ),
-    ],
-  ),
-  child: TextField(
-    controller: _parentMobileController,
-    style: GoogleFonts.poppins(
-      // Replace 'YourFontFamily' with your desired font family
-      fontWeight: FontWeight.bold,
-      color: Color(0xFF7364E3), // Adjust the text color
-    ),
-    decoration: InputDecoration(
-      border: InputBorder.none, // Remove default border
-      labelText: "Parent's Mobile Number",
-      labelStyle: GoogleFonts.poppins(
-        // Replace 'YourFontFamily' with your desired font family
-        fontWeight: FontWeight.bold,
-        color: Color(0x8F7364E3), // Adjust the weight as needed
-      ),
-    ),
-  ),
-),
-
+              decoration: BoxDecoration(
+                // Border color
+                borderRadius: BorderRadius.circular(10.0),
+                color: Color(0xFFFFFFFF),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 5,
+                    blurRadius: 10,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: TextField(
+                controller: _parentMobileController,
+                style: GoogleFonts.poppins(
+                  // Replace 'YourFontFamily' with your desired font family
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF7364E3), // Adjust the text color
+                ),
+                decoration: InputDecoration(
+                  border: InputBorder.none, // Remove default border
+                  labelText: "Parent's Mobile Number",
+                  labelStyle: GoogleFonts.poppins(
+                    // Replace 'YourFontFamily' with your desired font family
+                    fontWeight: FontWeight.bold,
+                    color: Color(0x8F7364E3), // Adjust the weight as needed
+                  ),
+                ),
+              ),
+            ),
             SizedBox(height: 10.0),
             Container(
               padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
@@ -417,11 +475,11 @@ class _AddStudentState extends State<AddPage> {
               ),
               child: TextField(
                 controller: _addressController,
-    style: GoogleFonts.poppins(
-      // Replace 'YourFontFamily' with your desired font family
-      fontWeight: FontWeight.bold,
-      color: Color(0xFF7364E3), // Adjust the text color
-    ),
+                style: GoogleFonts.poppins(
+                  // Replace 'YourFontFamily' with your desired font family
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF7364E3), // Adjust the text color
+                ),
                 decoration: InputDecoration(
                   border: InputBorder.none, // Remove default border
                   labelText: 'Address',
@@ -452,11 +510,11 @@ class _AddStudentState extends State<AddPage> {
               ),
               child: TextField(
                 controller: _roomController,
-    style: GoogleFonts.poppins(
-      // Replace 'YourFontFamily' with your desired font family
-      fontWeight: FontWeight.bold,
-      color: Color(0xFF7364E3), // Adjust the text color
-    ),
+                style: GoogleFonts.poppins(
+                  // Replace 'YourFontFamily' with your desired font family
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF7364E3), // Adjust the text color
+                ),
                 decoration: InputDecoration(
                   border: InputBorder.none, // Remove default border
                   labelText: 'Room Number',
@@ -487,11 +545,11 @@ class _AddStudentState extends State<AddPage> {
               ),
               child: TextField(
                 controller: _passController,
-    style: GoogleFonts.poppins(
-      // Replace 'YourFontFamily' with your desired font family
-      fontWeight: FontWeight.bold,
-      color: Color(0xFF7364E3), // Adjust the text color
-    ),
+                style: GoogleFonts.poppins(
+                  // Replace 'YourFontFamily' with your desired font family
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF7364E3), // Adjust the text color
+                ),
                 decoration: InputDecoration(
                   border: InputBorder.none, // Remove default border
                   labelText: 'Password',
@@ -517,7 +575,7 @@ class _AddStudentState extends State<AddPage> {
                 'Upload Student Details',
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
-                  color:Colors.white,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -539,57 +597,61 @@ class _AddStudentState extends State<AddPage> {
     } else {
       // Get the ID of the last document
       final String lastId = querySnapshot.docs[count - 1].id;
-      final int lastIdNum =
-          int.parse(lastId.substring(3)); // Extract the numeric part and convert to integer
+      final int lastIdNum = int.parse(lastId
+          .substring(3)); // Extract the numeric part and convert to integer
       final int newIdNum = lastIdNum + 1; // Increment the ID
       return 'STU$newIdNum';
     }
   }
 
   Future<void> _uploadStudentDetails() async {
-  // Check if any of the fields are empty
-  if (_nameController.text.isEmpty ||
-      _selectedDate == null ||
-      _mobileController.text.isEmpty ||
-      _selectedCollege == null ||
-      _selectedCourse == null ||
-      _parentNameController.text.isEmpty ||
-      _parentMobileController.text.isEmpty ||
-      _addressController.text.isEmpty ||
-      _passController.text.isEmpty ||
-      _roomController.text.isEmpty) {
-    // Show a SnackBar if any field is empty
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Please fill all inputs'),
-      ),
-    );
-    return; // Exit the method if any field is empty
+    // Check if any of the fields are empty
+    if (_nameController.text.isEmpty ||
+        _selectedDate == null ||
+        _mobileController.text.isEmpty ||
+        _selectedCollege == null ||
+        _selectedCourse == null ||
+        _parentNameController.text.isEmpty ||
+        _parentMobileController.text.isEmpty ||
+        _addressController.text.isEmpty ||
+        _passController.text.isEmpty ||
+        _roomController.text.isEmpty) {
+      // Show a SnackBar if any field is empty
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please fill all inputs'),
+        ),
+      );
+      return; // Exit the method if any field is empty
+    }
+
+    // Get new student ID
+    final String studentId = await _getNewStudentId();
+
+    // Save student details to Firestore with the generated ID and as document name
+    await FirebaseFirestore.instance.collection('student').doc(studentId).set({
+      'studentId': studentId, // Add student ID field
+      'name': _nameController.text.trim(),
+      'dob': DateFormat('dd-MM-yyyy').format(_selectedDate!),
+      'mobile': _mobileController.text.trim(),
+      'college': _selectedCollege,
+      'course': _selectedCourse,
+      'parentName': _parentNameController.text.trim(),
+      'parentMobile': _parentMobileController.text.trim(),
+      'address': _addressController.text.trim(),
+      'roomNumber': _roomController.text.trim(),
+      'password': _passController.text.trim(),
+      'cardid': dropdownvalue.trim(),
+    }).then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Student details uploaded successfully'),
+        ),
+      );
+    }).whenComplete(() => Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => AdminHomeScreen()),
+        (route) => false));
+
   }
-
-  // Get new student ID
-  final String studentId = await _getNewStudentId();
-
-  // Save student details to Firestore with the generated ID and as document name
-  await FirebaseFirestore.instance.collection('student').doc(studentId).set({
-    'studentId': studentId, // Add student ID field
-    'name': _nameController.text.trim(),
-    'dob': DateFormat('dd-MM-yyyy').format(_selectedDate!),
-    'mobile': _mobileController.text.trim(),
-    'college': _selectedCollege,
-    'course': _selectedCourse,
-    'parentName': _parentNameController.text.trim(),
-    'parentMobile': _parentMobileController.text.trim(),
-    'address': _addressController.text.trim(),
-    'roomNumber': _roomController.text.trim(),
-    'password': _passController.text.trim(),
-  });
-
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text('Student details uploaded successfully'),
-    ),
-  );
-}
-
 }

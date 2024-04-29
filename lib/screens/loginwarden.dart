@@ -14,14 +14,14 @@ class LoginPageWadern extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPageWadern> {
-  final TextEditingController _phoneNumberController = TextEditingController();
-  final TextEditingController _studentIdController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _adminIdController = TextEditingController();
   bool _isButtonEnabled = false;
 
   @override
   void dispose() {
-    _phoneNumberController.dispose();
-    _studentIdController.dispose();
+    _usernameController.dispose();
+    _adminIdController.dispose();
     super.dispose();
   }
 
@@ -107,14 +107,12 @@ class _LoginPageState extends State<LoginPageWadern> {
                       ],
                     ),
                     child: TextField(
-                      controller: _phoneNumberController,
-                      
+                      controller: _usernameController,
                       onChanged: (value) {
                         setState(() {
-                          _isButtonEnabled = value.length == 5;
+                          _isButtonEnabled = value.length >= 5;
                         });
                       },
-                      
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "Enter Username",
@@ -143,9 +141,8 @@ class _LoginPageState extends State<LoginPageWadern> {
                       ],
                     ),
                     child: TextField(
-                      controller: _studentIdController,
+                      controller: _adminIdController,
                       keyboardType: TextInputType.number,
-                      
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "Enter AdminId",
@@ -160,11 +157,10 @@ class _LoginPageState extends State<LoginPageWadern> {
                   GestureDetector(
                     onTap: _isButtonEnabled
                         ? () {
-                            String Phone = _phoneNumberController.text;
-                            String Id = _studentIdController.text;
-                            _handleLogin(Phone, Id);
-                            print(Id);
-                            print(Phone);
+                            String username = _usernameController.text.trim();
+                            String Id = _adminIdController.text.trim();
+                            _handleLogin(username, Id);
+                            
                           }
                         : null, // Disable onTap if button is disabled
                     child: Container(
@@ -195,9 +191,15 @@ class _LoginPageState extends State<LoginPageWadern> {
     );
   }
 
-  Future<void> _handleLogin(String username, String adminId) async {
+  Future<void> _handleLogin(String username, String adminid) async {
     try {
-      if (username == 'admin' && adminId == '1234') {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('Admins')
+          .doc(username)
+          .get();
+
+      if (username.trim() == snapshot['username'] &&
+          adminid.trim() == snapshot['adminid']) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         Navigator.pushAndRemoveUntil(
             context,

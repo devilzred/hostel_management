@@ -52,7 +52,6 @@ dependencies:
   shared_preferences_riverpod: ^0.3.0
   firebase_database: ^10.5.4
   
-  
 
 
 dev_dependencies:
