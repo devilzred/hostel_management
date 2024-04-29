@@ -217,14 +217,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.4"
-  direct_flutter_sms:
-    dependency: "direct main"
-    description:
-      name: direct_flutter_sms
-      sha256: "4853a6d7b442678d49096078f0ea6181ef984002efbb6f260d0c7dda6ae1f889"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   doc_widget:
     dependency: "direct main"
     description:
