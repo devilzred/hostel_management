@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -59,8 +60,8 @@ class _AttendanceState extends State<Attendance> {
         ),
         decoration: InputDecoration(
           hintText: 'Search by Student ID',
-          hintStyle:
-              GoogleFonts.poppins(color: Colors.grey, fontSize: 16), // Hint text style
+          hintStyle: GoogleFonts.poppins(
+              color: Colors.grey, fontSize: 16), // Hint text style
           border: InputBorder.none,
           prefixIcon: Icon(
             Icons.person_search_rounded,
@@ -85,7 +86,8 @@ class _AttendanceState extends State<Attendance> {
 
   Widget _buildStudentInfo(String studentId) {
     return FutureBuilder<DocumentSnapshot>(
-      future: FirebaseFirestore.instance.collection('student').doc(studentId).get(),
+      future:
+          FirebaseFirestore.instance.collection('student').doc(studentId).get(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
@@ -111,20 +113,19 @@ class _AttendanceState extends State<Attendance> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                
-                          ElevatedButton(
-                            onPressed: () {
-                              _markAttendance(studentId, true);
-                            },
-                            child: Text("Mark In"),
-                          ),
-                          SizedBox(height: 20.0),
-                          ElevatedButton(
-                            onPressed: () {
-                              _markAttendance(studentId, false);
-                            },
-                            child: Text("Mark Out"),
-                          ),
+                      ElevatedButton(
+                        onPressed: () {
+                          _markAttendance(studentId, true);
+                        },
+                        child: Text("Mark In"),
+                      ),
+                      SizedBox(height: 20.0),
+                      ElevatedButton(
+                        onPressed: () {
+                          _markAttendance(studentId, false);
+                        },
+                        child: Text("Mark Out"),
+                      ),
                     ],
                   ),
                 ],
@@ -161,8 +162,39 @@ class _AttendanceState extends State<Attendance> {
   }
 
   Future<void> _markAttendance(String studentId, bool isIn) async {
+    var documentSnapshot = await FirebaseFirestore.instance
+        .collection('student')
+        .doc(studentId)
+        .get();
+
+    if (documentSnapshot.exists) {
+      var data = documentSnapshot.data();
+      if (data != null && data.containsKey('cardid')) {
+        var cardId = data['cardid'];
+        String Datetimeformatted = DateTime.now().toString();
+        DatabaseReference ref = FirebaseDatabase.instance.ref("users");
+        DatabaseReference dref = FirebaseDatabase.instance.ref("attendance");
+        DatabaseReference newChildRef = dref.push();
+        await ref.update({
+          "$cardId": isIn ? 1 : 0,
+        });
+        await newChildRef.set({
+          "id": "manual",
+          "status": isIn ? 1 : 0,
+          "time": Datetimeformatted,
+          "uid": cardId
+        });
+      } else {
+        print('Card ID not found or is null.');
+      }
+    } else {
+      print('Document with ID $studentId not found.');
+    }
     try {
-      await FirebaseFirestore.instance.collection('attendance').doc(studentId).set({
+      await FirebaseFirestore.instance
+          .collection('attendance')
+          .doc(studentId)
+          .set({
         'isIN': isIn,
         'timestamp': DateTime.now(),
       }, SetOptions(merge: true));

@@ -454,61 +454,7 @@ class AdminHomeScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 20),
-
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ManageRoomsPage()),
-                                      );
-                                    },
-                                    child: Container(
-                                      width: 150,
-                                      height: 150,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.2),
-                                            spreadRadius: 3,
-                                            blurRadius: 10,
-                                            offset: Offset(0, 3),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.hotel_rounded,
-                                            size: 80,
-                                            color: Color(0xff7364e3),
-                                          ),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            'Manage Rooms',
-                                            style: GoogleFonts.poppins(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xff7364e3),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 20),
+  
                               // Third row of containers
                             ],
                           ),
@@ -572,8 +518,8 @@ class AdminHomeScreen extends StatelessWidget {
                                   );
                                 },
                                 child: Container(
-                                  width: 150,
-                                  height: 150,
+                                  width: 145,
+                                  height: 145,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
@@ -609,34 +555,9 @@ class AdminHomeScreen extends StatelessWidget {
                                 ),
                               ),
                               // Second row of containers
-                              
+                                      
                               SizedBox(width: 20),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            UploadPhotoPage()),
-                                  );
-                                },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+  
                             ],
                           ),
                           SizedBox(
