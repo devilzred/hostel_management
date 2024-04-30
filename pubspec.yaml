@@ -51,6 +51,8 @@ dependencies:
   shared_preferences: ^2.2.3
   shared_preferences_riverpod: ^0.3.0
   firebase_database: ^10.5.4
+  background_sms: ^0.0.4
+  permission_handler: ^11.3.1
   
 
 
