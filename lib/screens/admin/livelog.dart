@@ -21,9 +21,13 @@ class _LiveLogState extends State<LiveLog> {
   String message = '';
 
   late DatabaseReference _databaseReference;
+  late int? previousStatus;
+  late bool _isFirstSnapshot = true;
 
   CollectionReference students =
       FirebaseFirestore.instance.collection('student');
+  final CollectionReference previousStatusCollection =
+      FirebaseFirestore.instance.collection('messagesend');
 
   ScrollController controller = ScrollController();
 
@@ -69,7 +73,7 @@ class _LiveLogState extends State<LiveLog> {
   void _scrollDown() {
     controller.animateTo(
       controller.position.maxScrollExtent,
-      duration: Duration(milliseconds: 500), 
+      duration: Duration(milliseconds: 500),
       curve: Curves.fastOutSlowIn,
     );
   }
@@ -95,13 +99,68 @@ class _LiveLogState extends State<LiveLog> {
     super.initState();
     _databaseReference = FirebaseDatabase.instance.ref().child('users');
     students = FirebaseFirestore.instance.collection('student');
+    _listenForStatusChanges();
   }
 
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    _listenForStatusChanges();
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   super.didChangeDependencies();
+  //   _listenForStatusChanges();
+  // }
+
+  Future<int?> getPreviousStatus(String uid) async {
+    try {
+      // Retrieve the document with the given UID from the 'previous_statuses' collection
+      DocumentSnapshot documentSnapshot =
+          await previousStatusCollection.doc(uid).get();
+      // If the document exists, return the previous status
+      if (documentSnapshot.exists) {
+        return documentSnapshot['status'] as int?;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('Error getting previous status: $e');
+      return null;
+    }
+  }
+
+  Future<void> updatePreviousStatus(String uid, int status) async {
+    print(uid);
+    try {
+      // Update the document with the given UID in the 'previous_statuses' collection
+      await previousStatusCollection.doc(uid).update({'status': status});
+      await previousStatusCollection.doc(uid).update({'messageSent': false});
+    } catch (e) {
+      print('Error updating previous status: $e');
+    }
+  }
+
+  Future<bool> isMessageSent(String uid) async {
+    try {
+      // Retrieve the document with the given UID from the 'previous_statuses' collection
+      DocumentSnapshot documentSnapshot =
+          await previousStatusCollection.doc(uid).get();
+      // If the document exists and contains a 'messageSent' field, return its value
+      if (documentSnapshot.exists) {
+        return documentSnapshot['messageSent'] ?? false;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print('Error checking if message is sent: $e');
+      return false;
+    }
+  }
+
+  Future<void> setMessageSent(String uid) async {
+    try {
+      // Update the document with the given UID in the 'previous_statuses' collection
+      await previousStatusCollection.doc(uid).update({'messageSent': true});
+    } catch (e) {
+      print('Error setting message sent status: $e');
+    }
   }
 
   void _listenForStatusChanges() {
@@ -114,23 +173,38 @@ class _LiveLogState extends State<LiveLog> {
           String studentName = await NameFinder(uid);
           String number = await ParentNum(uid);
           int status = value as int;
-          if (status == 0) {
-            setState(() {
-              message = '$studentName has been Checked out';
-            });
-          } else if (status == 1) {
-            // Use 'else if' to ensure mutual exclusivity
-            setState(() {
-              message = '$studentName has Checked In';
-            });
+
+          // Retrieve the previous status from Firestore or Realtime Database
+          int? previousStatus = await getPreviousStatus(uid);
+
+          // Check if the status has changed and the message has not been sent yet
+          if (status != previousStatus && !await isMessageSent(uid)) {
+            // Update the previous status in Firestore or Realtime Database
+            updatePreviousStatus(uid, status);
+
+            // Rest of your code to handle the status change...
+            if (status == 0) {
+              setState(() {
+                message = '$studentName has been Checked out';
+              });
+            } else if (status == 1) {
+              setState(() {
+                message = '$studentName has Checked In';
+              });
+            }
+            if (await _isPermissionGranted()) {
+              if ((await _supportCustomSim)!) {
+                _sendMessage(number, message, simSlot: 1);
+              } else {
+                _sendMessage(number, message);
+              }
+              // Set the flag to indicate that the message has been sent
+              setMessageSent(uid);
+            } else {
+              _getPermission();
+            }           
           }
-          if (await _isPermissionGranted()) {
-            if ((await _supportCustomSim)!) {
-              _sendMessage(number, message, simSlot: 1);
-            } else
-              _sendMessage(number, message);
-          } else
-            _getPermission();
+          updatePreviousStatus(uid, status);
         });
       }
     });

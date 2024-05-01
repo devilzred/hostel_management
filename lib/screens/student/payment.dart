@@ -106,7 +106,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   bottomLeft: Radius.circular(50),
                 ),
               ),
-              padding: EdgeInsets.all(8),
+              padding: EdgeInsets.all(4),
               child: Icon(
                 Icons.keyboard_arrow_right,
                 color: Color(0xFFFFFFFF),
@@ -119,7 +119,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               Text(
                 'Total estimated bill',
                 style: GoogleFonts.poppins(
-                  fontSize: 22,
+                  fontSize: 20,
                   color: Color(0xff7364e3),
                   fontWeight: FontWeight.bold,
                 ),

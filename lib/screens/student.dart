@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hostel_app/screens/AuthGate.dart';
+import 'package:hostel_app/screens/customcontainer.dart';
 import 'package:hostel_app/screens/loginmain.dart';
 import 'package:hostel_app/screens/student/food.dart';
 import 'package:hostel_app/screens/student/leave.dart';
@@ -20,6 +22,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+
+  CollectionReference students =
+      FirebaseFirestore.instance.collection('student');
+
   String userName = "Hadil";
   String profilePhotoUrl = "assets/images/profile_photo.jpg";
 
@@ -30,6 +36,21 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  Future<String> getStuName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String id = prefs.getString('ID') ?? '';
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('student')
+          .doc(id)
+          .get();
+        if(snapshot['name']!=null){
+          return snapshot['name'];
+        }
+     else {
+      return "Unknown";
+    }
   }
 
   void _onAdminLogin() {
@@ -120,14 +141,40 @@ class _HomeScreenState extends State<HomeScreen> {
                 backgroundColor: Colors.transparent,
                 elevation: 0,
               ),
-              child: Text(
-                'Hy Hadil :)',
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff7364e3),
-                ),
-              ),
+              child: FutureBuilder<String>(
+              future: getStuName(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Text(
+                    'Loading...',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff7364e3),
+                    ),
+                  );
+                } else if (snapshot.hasError) {
+                  return Text(
+                    'Error',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff7364e3),
+                    ),
+                  );
+                } else {
+                  final name = snapshot.data ?? "Unknown";
+                  return Text(
+                    name,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff7364e3),
+                    ),
+                  );
+                }
+              },
+            ),
             ),
           ),
           Padding(
@@ -165,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Container(
-                      padding: EdgeInsets.fromLTRB(30, 130, 30, 30),
+                      padding: EdgeInsets.fromLTRB(20, 130, 20, 30),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -235,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           0xff7364e3), // Set your desired background color
                                       borderRadius: BorderRadius.circular(50),
                                     ),
-                                    padding: EdgeInsets.all(8),
+                                    padding: EdgeInsets.all(4),
                                     child: GestureDetector(
                                       onTap: () {
                                         Navigator.push(
@@ -263,7 +310,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Text(
                                           'Total estimated bill',
                                           style: GoogleFonts.poppins(
-                                            fontSize: 22,
+                                            fontSize: 20,
                                             color: Color(0xff7364e3),
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -366,296 +413,98 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           SizedBox(height: 30),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               // First row of containers
-                              GestureDetector(
+                              CustomContainer(
+                                icon: Icons.fastfood_rounded,
+                                text: 'Food Menu',
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => FoodMenu()),
+                                      builder: (context) => FoodMenu(),
+                                    ),
                                   );
                                 },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.fastfood_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Food Menu',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ),
-                              SizedBox(width: 20),
-                              GestureDetector(
+                              CustomContainer(
+                                icon: Icons.announcement_rounded,
+                                text: 'Leave Request',
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            LeaveRequestScreen()),
+                                      builder: (context) =>
+                                          LeaveRequestScreen(),
+                                    ),
                                   );
                                 },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.announcement_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Leave Request',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ),
                             ],
                           ),
                           SizedBox(height: 20),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               // Second row of containers
-                              GestureDetector(
+                              CustomContainer(
+                                icon: Icons.notifications_active_rounded,
+                                text: 'Notifications',
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            NotificationScreen()),
+                                      builder: (context) =>
+                                          NotificationScreen(),
+                                    ),
                                   );
                                 },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.notifications_active_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Notifications',
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ),
-                              SizedBox(width: 20),
-                              GestureDetector(
+                              CustomContainer(
+                                icon: Icons.report_problem_rounded,
+                                text: 'Report an issue',
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            ReportIssueScreen()),
+                                      builder: (context) => ReportIssueScreen(),
+                                    ),
                                   );
                                 },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.report_problem_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Report an issue',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ),
                             ],
                           ),
                           SizedBox(height: 20),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               // Third row of containers
-                              GestureDetector(
+                              CustomContainer(
+                                icon: Icons.content_paste_rounded,
+                                text: 'Activity Report',
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            DailyActivityReport()),
+                                      builder: (context) =>
+                                          DailyActivityReport(),
+                                    ),
                                   );
                                 },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.content_paste_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Activity Report',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ),
-                              SizedBox(width: 20),
-                              GestureDetector(
+                              CustomContainer(
+                                icon: Icons.person_pin_rounded,
+                                text: 'Imp. Contacts',
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            ImportantContactsScreen()),
+                                      builder: (context) =>
+                                          ImportantContactsScreen(),
+                                    ),
                                   );
                                 },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.person_pin_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Imp. Contacts',
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ),
                             ],
                           ),
