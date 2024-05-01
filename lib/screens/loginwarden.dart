@@ -17,6 +17,7 @@ class _LoginPageState extends State<LoginPageWadern> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _adminIdController = TextEditingController();
   bool _isButtonEnabled = false;
+  bool _isloading = false;
 
   @override
   void dispose() {
@@ -155,33 +156,36 @@ class _LoginPageState extends State<LoginPageWadern> {
                   SizedBox(height: 30),
                   // Submit Button
                   GestureDetector(
-                    onTap: _isButtonEnabled
-                        ? () {
-                            String username = _usernameController.text.trim();
-                            String Id = _adminIdController.text.trim();
-                            _handleLogin(username, Id);
-                            
-                          }
-                        : null, // Disable onTap if button is disabled
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: _isButtonEnabled
-                            ? Color(0xFF8E94FF)
-                            : Color(0xFF8E94FF).withOpacity(0.7),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "SUBMIT",
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                      onTap: _isButtonEnabled
+                          ? () {
+                              String username = _usernameController.text.trim();
+                              String Id = _adminIdController.text.trim();
+                              _handleLogin(username, Id);
+                            }
+                          : null, // Disable onTap if button is disabled
+                      child: !_isloading
+                          ? Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: _isButtonEnabled
+                                    ? Color(0xFF8E94FF)
+                                    : Color(0xFF8E94FF).withOpacity(0.7),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "SUBMIT",
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : const Center(
+                              child: CircularProgressIndicator(
+                              color: Color(0xFF8E94FF),
+                            ))),
                 ],
               ),
             ),
@@ -192,6 +196,9 @@ class _LoginPageState extends State<LoginPageWadern> {
   }
 
   Future<void> _handleLogin(String username, String adminid) async {
+    setState(() {
+      _isloading = true;
+    });
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
           .collection('Admins')
@@ -221,6 +228,10 @@ class _LoginPageState extends State<LoginPageWadern> {
           content: Text("An error occurred during login"),
         ),
       );
+    } finally {
+      setState(() {
+        _isloading = false;
+      });
     }
   }
 }

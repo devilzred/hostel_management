@@ -1,19 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hostel_app/screens/AuthGate.dart';
 import 'package:hostel_app/screens/admin/attendace.dart';
 import 'package:hostel_app/screens/admin/attendance_log.dart';
 import 'package:hostel_app/screens/admin/livelog.dart';
-import 'package:hostel_app/screens/loginstudent.dart';
 import 'package:hostel_app/screens/admin/addstd.dart';
 import 'package:hostel_app/screens/admin/viewstd.dart';
-import 'package:hostel_app/screens/admin/upldphoto.dart';
 import 'package:hostel_app/screens/admin/foodmenuadm.dart';
-import 'package:hostel_app/screens/admin/roomsadm.dart';
-import 'package:hostel_app/screens/loginmain.dart';
-import 'package:hostel_app/screens/student/issue.dart';
+import 'package:hostel_app/screens/customcontainer.dart';
 import 'package:hostel_app/screens/student/activityrep.dart';
 import 'package:hostel_app/screens/student/contacts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,7 +35,6 @@ class AdminHomeScreen extends StatelessWidget {
                 icon: Icon(Icons.exit_to_app_rounded,
                     color: Color(0xff7364e3), size: 40),
                 onPressed: () async {
-                  // Navigate to another page (here a simple message is shown)
                   signOut(context);
                 },
               );
@@ -50,7 +43,7 @@ class AdminHomeScreen extends StatelessWidget {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 30.0),
+            padding: const EdgeInsets.only(right: 20.0),
             child: ElevatedButton(
               onPressed: () {
                 // Replace with your admin login functionality
@@ -70,7 +63,7 @@ class AdminHomeScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 30.0),
+            padding: const EdgeInsets.only(right: 20.0),
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
@@ -88,7 +81,6 @@ class AdminHomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            // Background image
             Positioned(
               top: 0,
               right: 0,
@@ -103,7 +95,6 @@ class AdminHomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // Main content
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -115,10 +106,10 @@ class AdminHomeScreen extends StatelessWidget {
               ),
               child: CustomPaint(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      padding: EdgeInsets.fromLTRB(30, 130, 30, 30),
+                      padding: EdgeInsets.fromLTRB(20, 130, 20, 30),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -175,9 +166,11 @@ class AdminHomeScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 30),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              GestureDetector(
+                              CustomContainer(
+                                icon: Icons.group_add_rounded,
+                                text: 'Register Student',
                                 onTap: () {
                                   Navigator.push(
                                     context,
@@ -185,44 +178,10 @@ class AdminHomeScreen extends StatelessWidget {
                                         builder: (context) => AddPage()),
                                   );
                                 },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.group_add_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Register Student',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ),
-                              SizedBox(width: 20),
-                              GestureDetector(
+                              CustomContainer(
+                                icon: Icons.remove_red_eye_rounded,
+                                text: 'View Student',
                                 onTap: () {
                                   Navigator.push(
                                     context,
@@ -231,49 +190,18 @@ class AdminHomeScreen extends StatelessWidget {
                                             ViewStudentPage()),
                                   );
                                 },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.remove_red_eye_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'View Student',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ),
                             ],
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(
+                            height: 20,
+                          ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              GestureDetector(
+                              CustomContainer(
+                                icon: Icons.screenshot_monitor,
+                                text: 'Live Log',
                                 onTap: () {
                                   Navigator.push(
                                     context,
@@ -281,43 +209,7 @@ class AdminHomeScreen extends StatelessWidget {
                                         builder: (context) => LiveLog()),
                                   );
                                 },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.screenshot_monitor,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Live Log',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ),
-                              SizedBox(width: 20),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -326,48 +218,19 @@ class AdminHomeScreen extends StatelessWidget {
                                         builder: (context) => AttendenceLog()),
                                   );
                                 },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.pending_actions_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Attendence log',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                child: CustomContainer(
+                                  icon: Icons.pending_actions_rounded,
+                                  text: 'Attendence log',
+                                  onTap: () {},
                                 ),
                               ),
-                              SizedBox(width: 20),
                             ],
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(
+                            height: 20,
+                          ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GestureDetector(
                                 onTap: () {
@@ -377,90 +240,26 @@ class AdminHomeScreen extends StatelessWidget {
                                         builder: (context) => Attendance()),
                                   );
                                 },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.access_time_outlined,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'View Attendence',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                child: CustomContainer(
+                                  icon: Icons.access_time_outlined,
+                                  text: 'View Attendence',
+                                  onTap: () {},
                                 ),
                               ),
-                              SizedBox(width: 20),
-                              // Second row of containers
-                              GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.notifications_active_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Notifications',
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                              CustomContainer(
+                                icon: Icons.notifications_active_rounded,
+                                text: 'Notifications',
+                                onTap: () {
+                                  // Add your onTap logic here
+                                },
                               ),
-  
-                              // Third row of containers
                             ],
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(
+                            height: 20,
+                          ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GestureDetector(
                                 onTap: () {
@@ -471,43 +270,12 @@ class AdminHomeScreen extends StatelessWidget {
                                             DailyActivityReport()),
                                   );
                                 },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.book_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Total Report',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                child: CustomContainer(
+                                  icon: Icons.book_rounded,
+                                  text: 'Total Report',
+                                  onTap: () {},
                                 ),
                               ),
-                              SizedBox(width: 20),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -517,53 +285,19 @@ class AdminHomeScreen extends StatelessWidget {
                                             ImportantContactsScreen()),
                                   );
                                 },
-                                child: Container(
-                                  width: 145,
-                                  height: 145,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.attach_money_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Fee Report',
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                child: CustomContainer(
+                                  icon: Icons.attach_money_rounded,
+                                  text: 'Fee Report',
+                                  onTap: () {},
                                 ),
                               ),
-                              // Second row of containers
-                                      
-                              SizedBox(width: 20),
-  
                             ],
                           ),
                           SizedBox(
                             height: 20,
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GestureDetector(
                                 onTap: () {
@@ -573,44 +307,12 @@ class AdminHomeScreen extends StatelessWidget {
                                         builder: (context) => FoodMenuUpload()),
                                   );
                                 },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.fastfood_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Food Menu',
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                child: CustomContainer(
+                                  icon: Icons.fastfood_rounded,
+                                  text: 'Food Menu',
+                                  onTap: () {},
                                 ),
                               ),
-                              SizedBox(width: 20),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -620,40 +322,10 @@ class AdminHomeScreen extends StatelessWidget {
                                             ImportantContactsScreen()),
                                   );
                                 },
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        spreadRadius: 3,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 3),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.photo_camera_rounded,
-                                        size: 80,
-                                        color: Color(0xff7364e3),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Upload Profile',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xff7364e3),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                child: CustomContainer(
+                                  icon: Icons.photo_camera_rounded,
+                                  text: 'Upload Profile',
+                                  onTap: () {},
                                 ),
                               ),
                             ],
