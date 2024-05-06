@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hostel_app/screens/AuthGate.dart';
-import 'package:hostel_app/screens/customcontainer.dart';
-import 'package:hostel_app/screens/loginmain.dart';
-import 'package:hostel_app/screens/student/food.dart';
-import 'package:hostel_app/screens/student/leave.dart';
-import 'package:hostel_app/screens/student/notification.dart';
-import 'package:hostel_app/screens/student/issue.dart';
-import 'package:hostel_app/screens/student/activityrep.dart';
-import 'package:hostel_app/screens/student/contacts.dart';
-import 'package:hostel_app/screens/student/payment.dart';
-import 'package:hostel_app/screens/admin.dart';
-import 'package:hostel_app/screens/loginstudent.dart';
+import 'package:HostelApp/screens/AuthGate.dart';
+import 'package:HostelApp/screens/customcontainer.dart';
+import 'package:HostelApp/screens/loginmain.dart';
+import 'package:HostelApp/screens/student/food.dart';
+import 'package:HostelApp/screens/student/leave.dart';
+import 'package:HostelApp/screens/student/notification.dart';
+import 'package:HostelApp/screens/student/issue.dart';
+import 'package:HostelApp/screens/student/activityrep.dart';
+import 'package:HostelApp/screens/student/contacts.dart';
+import 'package:HostelApp/screens/student/payment.dart';
+import 'package:HostelApp/screens/admin.dart';
+import 'package:HostelApp/screens/loginstudent.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -41,14 +41,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<String> getStuName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('ID') ?? '';
-    DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection('student')
-          .doc(id)
-          .get();
-        if(snapshot['name']!=null){
-          return snapshot['name'];
-        }
-     else {
+    DocumentSnapshot snapshot =
+        await FirebaseFirestore.instance.collection('student').doc(id).get();
+    if (snapshot['name'] != null) {
+      return snapshot['name'];
+    } else {
       return "Unknown";
     }
   }
@@ -142,39 +139,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 elevation: 0,
               ),
               child: FutureBuilder<String>(
-              future: getStuName(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Text(
-                    'Loading...',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff7364e3),
-                    ),
-                  );
-                } else if (snapshot.hasError) {
-                  return Text(
-                    'Error',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff7364e3),
-                    ),
-                  );
-                } else {
-                  final name = snapshot.data ?? "Unknown";
-                  return Text(
-                    name,
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff7364e3),
-                    ),
-                  );
-                }
-              },
-            ),
+                future: getStuName(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text(
+                      'Loading...',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff7364e3),
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text(
+                      'Error',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff7364e3),
+                      ),
+                    );
+                  } else {
+                    final name = snapshot.data ?? "Unknown";
+                    return Text(
+                      name,
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff7364e3),
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
           ),
           Padding(

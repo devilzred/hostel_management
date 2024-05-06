@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hostel_app/main.dart';
+import 'package:HostelApp/main.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -49,171 +49,173 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ),
       backgroundColor: Color(0xFFFAFAFA),
       body: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
-          child: Stack(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xFFF0F0F0), Color(0xFFFAFAFA)],
-                    stops: [0.3, 0.9],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
-                child: CustomPaint(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(30, 130, 30, 30),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Payment Details',
-                          style: GoogleFonts.poppins(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff7364e3),
-                          ),
-                        ),
-                        SizedBox(height: 30),
-          Container(
-      width: 600,
-      padding: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 3,
-            blurRadius: 10,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            right: 0,
-            child: Container(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Stack(
+          children: [
+            Container(
               decoration: BoxDecoration(
-                color: Color(0xff7364e3),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
-                  bottomRight: Radius.circular(50),
-                  bottomLeft: Radius.circular(50),
+                gradient: LinearGradient(
+                  colors: [Color(0xFFF0F0F0), Color(0xFFFAFAFA)],
+                  stops: [0.3, 0.9],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
               ),
-              padding: EdgeInsets.all(4),
-              child: Icon(
-                Icons.keyboard_arrow_right,
-                color: Color(0xFFFFFFFF),
+              child: CustomPaint(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(30, 130, 30, 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Payment Details',
+                        style: GoogleFonts.poppins(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff7364e3),
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                      Container(
+                        width: 600,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              spreadRadius: 3,
+                              blurRadius: 10,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: 0,
+                              right: 0,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xff7364e3),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(50),
+                                    topRight: Radius.circular(50),
+                                    bottomRight: Radius.circular(50),
+                                    bottomLeft: Radius.circular(50),
+                                  ),
+                                ),
+                                padding: EdgeInsets.all(4),
+                                child: Icon(
+                                  Icons.keyboard_arrow_right,
+                                  color: Color(0xFFFFFFFF),
+                                ),
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Total estimated bill',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 20,
+                                    color: Color(0xff7364e3),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  'Your total bill of November month:',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF9B9B9B),
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Row(
+                                  children: [
+                                    Text(
+                                      '₹',
+                                      style: TextStyle(
+                                        fontSize: 48,
+                                        fontWeight: FontWeight.w900,
+                                        color: Color(0xff7364e3),
+                                      ),
+                                    ),
+                                    Text(
+                                      '5100',
+                                      style: GoogleFonts.ultra(
+                                        fontSize: 48,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff7364e3),
+                                      ),
+                                    ),
+                                    Text(
+                                      '/-',
+                                      style: GoogleFonts.ultra(
+                                        fontSize: 48,
+                                        fontWeight: FontWeight.w900,
+                                        color: Color(0xff7364e3),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // Add your Pay Now button functionality here
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Color(0xff7364e3),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    minimumSize: Size(double.infinity, 50),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Text(
+                                      'Pay Now',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                      Text(
+                        'Payment History',
+                        style: GoogleFonts.poppins(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff7364e3),
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                      _buildPaymentHistory('September'),
+                      SizedBox(height: 30),
+                      _buildPaymentHistory('August'),
+                      SizedBox(height: 30),
+                      _buildPaymentHistory('July'),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Total estimated bill',
-                style: GoogleFonts.poppins(
-                  fontSize: 20,
-                  color: Color(0xff7364e3),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'Your total bill of November month:',
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF9B9B9B),
-                ),
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: [
-                  Text(
-                    '₹',
-                    style: TextStyle(
-                      fontSize: 48,
-                      fontWeight: FontWeight.w900,
-                      color: Color(0xff7364e3),
-                    ),
-                  ),
-                  Text(
-                    '5100',
-                    style: GoogleFonts.ultra(
-                      fontSize: 48,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff7364e3),
-                    ),
-                  ),
-                  Text(
-                    '/-',
-                    style: GoogleFonts.ultra(
-                      fontSize: 48,
-                      fontWeight: FontWeight.w900,
-                      color: Color(0xff7364e3),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  // Add your Pay Now button functionality here
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff7364e3),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  minimumSize: Size(double.infinity, 50),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    'Pay Now',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-                      ),
-                        SizedBox(height: 30),
-                        Text(
-                          'Payment History',
-                          style: GoogleFonts.poppins(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff7364e3),
-                          ),
-                        ),
-                        SizedBox(height: 30),
-                        _buildPaymentHistory('September'),
-                        SizedBox(height: 30),
-                        _buildPaymentHistory('August'),
-                        SizedBox(height: 30),
-                        _buildPaymentHistory('July'),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          ],
         ),
+      ),
       drawer: Drawer(
         child: Container(
           decoration: BoxDecoration(),
@@ -303,8 +305,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-
-  
   Widget _buildPaymentHistory(String month) {
     return Container(
       width: 600,
@@ -394,7 +394,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  Widget _buildDrawerItem({String text = "", IconData icon = Icons.error, required void Function() onTap}) {
+  Widget _buildDrawerItem(
+      {String text = "",
+      IconData icon = Icons.error,
+      required void Function() onTap}) {
     return Container(
       decoration: BoxDecoration(
         color: Color(0xff7364e3),

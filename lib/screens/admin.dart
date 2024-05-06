@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hostel_app/screens/AuthGate.dart';
-import 'package:hostel_app/screens/admin/attendace.dart';
-import 'package:hostel_app/screens/admin/attendance_log.dart';
-import 'package:hostel_app/screens/admin/feereport.dart';
-import 'package:hostel_app/screens/admin/livelog.dart';
-import 'package:hostel_app/screens/admin/addstd.dart';
-import 'package:hostel_app/screens/admin/model/detailsclass.dart';
-import 'package:hostel_app/screens/admin/upldphoto.dart';
-import 'package:hostel_app/screens/admin/viewstd.dart';
-import 'package:hostel_app/screens/admin/foodmenuadm.dart';
-import 'package:hostel_app/screens/customcontainer.dart';
-import 'package:hostel_app/screens/student/activityrep.dart';
-import 'package:hostel_app/screens/student/contacts.dart';
-import 'package:hostel_app/screens/student/food.dart';
+import 'package:HostelApp/screens/AuthGate.dart';
+import 'package:HostelApp/screens/admin/attendace.dart';
+import 'package:HostelApp/screens/admin/attendance_log.dart';
+import 'package:HostelApp/screens/admin/feereport.dart';
+import 'package:HostelApp/screens/admin/livelog.dart';
+import 'package:HostelApp/screens/admin/addstd.dart';
+import 'package:HostelApp/screens/admin/model/detailsclass.dart';
+import 'package:HostelApp/screens/admin/upldphoto.dart';
+import 'package:HostelApp/screens/admin/viewstd.dart';
+import 'package:HostelApp/screens/admin/foodmenuadm.dart';
+import 'package:HostelApp/screens/customcontainer.dart';
+import 'package:HostelApp/screens/student/activityrep.dart';
+import 'package:HostelApp/screens/student/contacts.dart';
+import 'package:HostelApp/screens/student/food.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminHomeScreen extends StatelessWidget {
@@ -226,11 +226,12 @@ class AdminHomeScreen extends StatelessWidget {
                                   icon: Icons.pending_actions_rounded,
                                   text: 'Attendence log',
                                   onTap: () {
-                                                                      Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AttendenceLog()),
-                                  );
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AttendenceLog()),
+                                    );
                                   },
                                 ),
                               ),
@@ -255,10 +256,10 @@ class AdminHomeScreen extends StatelessWidget {
                                   text: 'View Attendence',
                                   onTap: () {
                                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Attendance()),
-                                  );
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Attendance()),
+                                    );
                                   },
                                 ),
                               ),
@@ -291,10 +292,11 @@ class AdminHomeScreen extends StatelessWidget {
                                   text: 'Total Report',
                                   onTap: () {
                                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>DailyActivityReport()),
-                                  );
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DailyActivityReport()),
+                                    );
                                   },
                                 ),
                               ),
@@ -312,10 +314,10 @@ class AdminHomeScreen extends StatelessWidget {
                                   text: 'Fee Report',
                                   onTap: () {
                                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Feereport()),
-                                  );
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Feereport()),
+                                    );
                                   },
                                 ),
                               ),
@@ -340,10 +342,11 @@ class AdminHomeScreen extends StatelessWidget {
                                   text: 'Food Menu',
                                   onTap: () {
                                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => FoodMenuUpload()),
-                                  );
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              FoodMenuUpload()),
+                                    );
                                   },
                                 ),
                               ),
@@ -361,10 +364,11 @@ class AdminHomeScreen extends StatelessWidget {
                                   text: 'Upload Profile',
                                   onTap: () {
                                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => UploadPhotoPage()),
-                                  );
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              UploadPhotoPage()),
+                                    );
                                   },
                                 ),
                               ),

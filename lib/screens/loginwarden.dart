@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hostel_app/main.dart';
-import 'package:hostel_app/screens/admin.dart';
-import 'package:hostel_app/screens/student.dart';
+import 'package:HostelApp/main.dart';
+import 'package:HostelApp/screens/admin.dart';
+import 'package:HostelApp/screens/student.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageWadern extends StatefulWidget {

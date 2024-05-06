@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hostel_app/screens/admin.dart';
-import 'package:hostel_app/screens/loginmain.dart';
-import 'package:hostel_app/screens/student.dart';
+import 'package:HostelApp/screens/admin.dart';
+import 'package:HostelApp/screens/loginmain.dart';
+import 'package:HostelApp/screens/student.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthGate extends StatefulWidget {
@@ -23,8 +23,6 @@ class _AuthGateState extends State<AuthGate> {
   }
 
   Future<void> _checkLoginStatus() async {
-    
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? username = prefs.getString("ust");
     if (username != null) {

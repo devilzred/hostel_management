@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hostel_app/screens/loginwarden.dart';
+import 'package:HostelApp/screens/loginwarden.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'loginstudent.dart'; // Import the LoginScreen widget
 

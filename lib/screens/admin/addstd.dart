@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hostel_app/screens/admin.dart';
+import 'package:HostelApp/screens/admin.dart';
 import 'package:intl/intl.dart'; // Import the intl package for date formatting
 import 'package:google_fonts/google_fonts.dart';
 
@@ -652,6 +652,5 @@ class _AddStudentState extends State<AddPage> {
         context,
         MaterialPageRoute(builder: (context) => AdminHomeScreen()),
         (route) => false));
-
   }
 }

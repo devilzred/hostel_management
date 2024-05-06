@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hostel_app/main.dart';
-import 'package:hostel_app/screens/admin.dart';
-import 'package:hostel_app/screens/student.dart';
+import 'package:HostelApp/main.dart';
+import 'package:HostelApp/screens/admin.dart';
+import 'package:HostelApp/screens/student.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageStd extends StatefulWidget {
@@ -155,32 +155,36 @@ class _LoginPageState extends State<LoginPageStd> {
                   SizedBox(height: 30),
                   // Submit Button
                   GestureDetector(
-                    onTap: _isButtonEnabled
-                        ? () {
-                            String Id = _studentIdController.text.trim();
-                            String pass = _passwordController.text.trim();
-                            _handleLogin(Id, pass);
-                          }
-                        : null, // Disable onTap if button is disabled
-                    child: !_isloading? Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: _isButtonEnabled
-                            ? Color(0xFF8E94FF)
-                            : Color(0xFF8E94FF).withOpacity(0.7),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "SUBMIT",
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ):const Center(child: CircularProgressIndicator(color: Color(0xFF8E94FF),))
-                  ),
+                      onTap: _isButtonEnabled
+                          ? () {
+                              String Id = _studentIdController.text.trim();
+                              String pass = _passwordController.text.trim();
+                              _handleLogin(Id, pass);
+                            }
+                          : null, // Disable onTap if button is disabled
+                      child: !_isloading
+                          ? Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: _isButtonEnabled
+                                    ? Color(0xFF8E94FF)
+                                    : Color(0xFF8E94FF).withOpacity(0.7),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "SUBMIT",
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : const Center(
+                              child: CircularProgressIndicator(
+                              color: Color(0xFF8E94FF),
+                            ))),
                 ],
               ),
             ),

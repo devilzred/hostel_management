@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hostel_app/screens/student.dart'; // Import Firestore
+import 'package:HostelApp/screens/student.dart'; // Import Firestore
 
 class ReportIssueScreen extends StatelessWidget {
   final TextEditingController issueController = TextEditingController();
@@ -95,7 +95,8 @@ class ReportIssueScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 40),
                 SizedBox(
-                  width: double.infinity, // Make button width equal to page width
+                  width:
+                      double.infinity, // Make button width equal to page width
                   child: ElevatedButton(
                     onPressed: () {
                       // Logic to submit the issue
@@ -137,27 +138,30 @@ class ReportIssueScreen extends StatelessWidget {
     bool? result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Are you sure?',
-        style: GoogleFonts.poppins(
-          fontWeight: FontWeight.bold,
-        ),),
-        content: Text('Do you want to leave without submitting the issue?',
-        style: GoogleFonts.poppins(
-          fontWeight: FontWeight.w500,
-        ),),
+        title: Text(
+          'Are you sure?',
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Text(
+          'Do you want to leave without submitting the issue?',
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
             child: Text('No'),
           ),
           TextButton(
-           onPressed: () {
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (context) => HomeScreen()),
-  );
-},
-
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => HomeScreen()),
+              );
+            },
             child: Text('Yes'),
           ),
         ],
@@ -165,8 +169,6 @@ class ReportIssueScreen extends StatelessWidget {
     );
     return result ?? false; // Return false if result is null
   }
-
-
 }
 
 void main() {

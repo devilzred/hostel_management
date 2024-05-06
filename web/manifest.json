@@ -1,6 +1,6 @@
 {
-    "name": "hostel_app",
-    "short_name": "hostel_app",
+    "name": "HostelApp",
+    "short_name": "HostelApp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
