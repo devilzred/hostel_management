@@ -256,7 +256,7 @@ class AdminHomeScreen extends StatelessWidget {
                                 },
                                 child: CustomContainer(
                                   icon: Icons.access_time_outlined,
-                                  text: 'View Attendence',
+                                  text: 'Add Attendence',
                                   onTap: () {
                                     Navigator.push(
                                       context,
