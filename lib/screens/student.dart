@@ -1,3 +1,4 @@
+import 'package:HostelApp/screens/student/adminnotifi.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -453,7 +454,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          NotificationScreen(),
+                                          NotifiScrn(),
                                     ),
                                   );
                                 },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class LeaveRequestScreen extends StatefulWidget {
@@ -42,12 +43,15 @@ class _LeaveRequestScreenState extends State<LeaveRequestScreen> {
 
   Future<void> _submitLeaveRequest() async {
   try {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String id = prefs.getString('ID') ?? '';
     // Access Firestore instance
     final CollectionReference leaveReqCollection =
         FirebaseFirestore.instance.collection('leavereq');
 
     // Store leave request data
     await leaveReqCollection.add({
+      'stuid': id,
       'date': DateTime.now(),
       'leaveType': _selectedLeaveType,
       'startDate': _selectedStartDate,

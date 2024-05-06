@@ -4,9 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:HostelApp/screens/student.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Import Firestore
 
-class ReportIssueScreen extends StatelessWidget {
-  final TextEditingController issueController = TextEditingController();
-  final TextEditingController additionalDetailsController =
+class SendNotification extends StatelessWidget {
+  final TextEditingController mattertitle = TextEditingController();
+  final TextEditingController matterdes =
       TextEditingController();
   bool isSubmitted = false;
 
@@ -33,7 +33,7 @@ class ReportIssueScreen extends StatelessWidget {
                 },
               ),
               title: Text(
-                'Report an Issue',
+                'Notifi Students',
                 style: GoogleFonts.poppins(
                   fontSize: 22, // Adjust the font size
                   fontWeight: FontWeight.bold, // Adjust the font weight
@@ -50,7 +50,7 @@ class ReportIssueScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'What issue are you facing?',
+                  'Title',
                   style: GoogleFonts.poppins(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -59,9 +59,9 @@ class ReportIssueScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 30),
                 TextField(
-                  controller: issueController,
+                  controller: mattertitle,
                   decoration: InputDecoration(
-                    hintText: 'Describe the issue...',
+                    hintText: 'Title of the Matter',
                     contentPadding: EdgeInsets.all(20.0),
                     hintStyle: GoogleFonts.poppins(
                       fontSize: 14,
@@ -74,7 +74,7 @@ class ReportIssueScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 40),
                 Text(
-                  'Additional Details (Optional)',
+                  'Details (Optional)',
                   style: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -83,9 +83,9 @@ class ReportIssueScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 30),
                 TextField(
-                  controller: additionalDetailsController,
+                  controller: matterdes,
                   decoration: InputDecoration(
-                    hintText: 'Any additional details...',
+                    hintText: 'Describe the Matter',
                     contentPadding: EdgeInsets.all(20.0),
                     hintStyle: GoogleFonts.poppins(
                       fontSize: 14,
@@ -115,7 +115,7 @@ class ReportIssueScreen extends StatelessWidget {
                           vertical: 16, horizontal: 24), // Button padding
                     ),
                     child: Text(
-                      'Submit Issue',
+                      'Send Notification',
                       style: GoogleFonts.poppins(
                           fontSize: 14, // Text size
                           fontWeight: FontWeight.w600),
@@ -172,14 +172,14 @@ class ReportIssueScreen extends StatelessWidget {
       String id = prefs.getString('ID') ?? '';
       // Access Firestore instance
       final CollectionReference IssueCollection =
-          FirebaseFirestore.instance.collection('issuereport');
+          FirebaseFirestore.instance.collection('notifications');
 
       // Store leave request data
       await IssueCollection.add({
-        'stuid': id,
+        'admin': id,
         'date': DateTime.now(),
-        'issue': issueController.text.trim(),
-        'additional': additionalDetailsController.text.trim(),
+        'title': mattertitle.text.trim(),
+        'description': matterdes.text.trim(),
       });
 
       // Show success alert

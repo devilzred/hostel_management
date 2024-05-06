@@ -1,4 +1,6 @@
-import 'package:HostelApp/screens/admin/adminnoti.dart';
+import 'package:HostelApp/screens/admin/Leavcheck.dart';
+import 'package:HostelApp/screens/admin/isuuereport.dart';
+import 'package:HostelApp/screens/admin/sendNotification.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:HostelApp/screens/AuthGate.dart';
@@ -265,70 +267,70 @@ class AdminHomeScreen extends StatelessWidget {
                                 ),
                               ),
                               CustomContainer(
-                                icon: Icons.notifications_active_rounded,
-                                text: 'Notifications',
+                                icon: Icons.nordic_walking_outlined,
+                                text: 'Leave Req',
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            NotificationAdmin()),
+                                            LeaveNotify()),
                                   );
                                 },
                               ),
                             ],
                           ),
-                          // SizedBox(
-                          //   height: 20,
-                          // ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   children: [
-                          //     GestureDetector(
-                          //       onTap: () {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //       builder: (context) =>
-                                  //           DailyActivityReport()),
-                                  // );
-                          //       },
-                          //       child: CustomContainer(
-                          //         icon: Icons.book_rounded,
-                          //         text: 'Total Report',
-                          //         onTap: () {
-                          //           Navigator.push(
-                          //             context,
-                          //             MaterialPageRoute(
-                          //                 builder: (context) =>
-                          //                     DailyActivityReport()),
-                          //           );
-                          //         },
-                          //       ),
-                          //     ),
-                          //     GestureDetector(
-                          //       onTap: () {
-                          //         Navigator.push(
-                          //           context,
-                          //           MaterialPageRoute(
-                          //               builder: (context) =>
-                          //                   ImportantContactsScreen()),
-                          //         );
-                          //       },
-                          //       child: CustomContainer(
-                          //         icon: Icons.attach_money_rounded,
-                          //         text: 'Fee Report',
-                          //         onTap: () {
-                          //           Navigator.push(
-                          //             context,
-                          //             MaterialPageRoute(
-                          //                 builder: (context) => Feereport()),
-                          //           );
-                          //         },
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            DailyActivityReport()),
+                                  );
+                                },
+                                child: CustomContainer(
+                                  icon: Icons.book_rounded,
+                                  text: 'Issue Received',
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              IssueRecieved()),
+                                    );
+                                  },
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ImportantContactsScreen()),
+                                  );
+                                },
+                                child: CustomContainer(
+                                  icon: Icons.attach_money_rounded,
+                                  text: 'Fee Report',
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SendNotification()),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                           SizedBox(
                             height: 20,
                           ),
