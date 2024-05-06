@@ -3,13 +3,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hostel_app/screens/AuthGate.dart';
 import 'package:hostel_app/screens/admin/attendace.dart';
 import 'package:hostel_app/screens/admin/attendance_log.dart';
+import 'package:hostel_app/screens/admin/feereport.dart';
 import 'package:hostel_app/screens/admin/livelog.dart';
 import 'package:hostel_app/screens/admin/addstd.dart';
+import 'package:hostel_app/screens/admin/model/detailsclass.dart';
+import 'package:hostel_app/screens/admin/upldphoto.dart';
 import 'package:hostel_app/screens/admin/viewstd.dart';
 import 'package:hostel_app/screens/admin/foodmenuadm.dart';
 import 'package:hostel_app/screens/customcontainer.dart';
 import 'package:hostel_app/screens/student/activityrep.dart';
 import 'package:hostel_app/screens/student/contacts.dart';
+import 'package:hostel_app/screens/student/food.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminHomeScreen extends StatelessWidget {
@@ -221,7 +225,13 @@ class AdminHomeScreen extends StatelessWidget {
                                 child: CustomContainer(
                                   icon: Icons.pending_actions_rounded,
                                   text: 'Attendence log',
-                                  onTap: () {},
+                                  onTap: () {
+                                                                      Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AttendenceLog()),
+                                  );
+                                  },
                                 ),
                               ),
                             ],
@@ -237,13 +247,19 @@ class AdminHomeScreen extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Attendance()),
+                                        builder: (context) => AttendenceLog()),
                                   );
                                 },
                                 child: CustomContainer(
                                   icon: Icons.access_time_outlined,
                                   text: 'View Attendence',
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Attendance()),
+                                  );
+                                  },
                                 ),
                               ),
                               CustomContainer(
@@ -273,7 +289,13 @@ class AdminHomeScreen extends StatelessWidget {
                                 child: CustomContainer(
                                   icon: Icons.book_rounded,
                                   text: 'Total Report',
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>DailyActivityReport()),
+                                  );
+                                  },
                                 ),
                               ),
                               GestureDetector(
@@ -288,7 +310,13 @@ class AdminHomeScreen extends StatelessWidget {
                                 child: CustomContainer(
                                   icon: Icons.attach_money_rounded,
                                   text: 'Fee Report',
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Feereport()),
+                                  );
+                                  },
                                 ),
                               ),
                             ],
@@ -310,7 +338,13 @@ class AdminHomeScreen extends StatelessWidget {
                                 child: CustomContainer(
                                   icon: Icons.fastfood_rounded,
                                   text: 'Food Menu',
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => FoodMenuUpload()),
+                                  );
+                                  },
                                 ),
                               ),
                               GestureDetector(
@@ -325,7 +359,13 @@ class AdminHomeScreen extends StatelessWidget {
                                 child: CustomContainer(
                                   icon: Icons.photo_camera_rounded,
                                   text: 'Upload Profile',
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => UploadPhotoPage()),
+                                  );
+                                  },
                                 ),
                               ),
                             ],

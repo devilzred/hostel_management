@@ -75,8 +75,6 @@ class _AttendenceLogState extends State<AttendenceLog> {
   void initState() {
     super.initState();
     _isLoading = true;
-    // Fetch data here
-    // Once data is fetched, set _isLoading to false
     Future.delayed(Duration(milliseconds: 500), () {
       setState(() {
         _isLoading = false;

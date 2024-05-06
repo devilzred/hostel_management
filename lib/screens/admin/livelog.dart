@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ffi';
 
 import 'package:background_sms/background_sms.dart';
@@ -19,6 +20,8 @@ class LiveLog extends StatefulWidget {
 class _LiveLogState extends State<LiveLog> {
   var jsonData = '';
   String message = '';
+  String checkedInCount = '';
+  String checkedOutCount = '';
 
   late DatabaseReference _databaseReference;
   late int? previousStatus;
@@ -79,7 +82,7 @@ class _LiveLogState extends State<LiveLog> {
   }
 
   Widget getStatusIcon(status) {
-    if (status == 1) {
+    if (status == "1") {
       return Icon(
         Icons.check_circle_outline,
         color: Colors.green,
@@ -111,10 +114,8 @@ class _LiveLogState extends State<LiveLog> {
 
   Future<int?> getPreviousStatus(String uid) async {
     try {
-      // Retrieve the document with the given UID from the 'previous_statuses' collection
       DocumentSnapshot documentSnapshot =
           await previousStatusCollection.doc(uid).get();
-      // If the document exists, return the previous status
       if (documentSnapshot.exists) {
         return documentSnapshot['status'] as int?;
       } else {
@@ -129,7 +130,6 @@ class _LiveLogState extends State<LiveLog> {
   Future<void> updatePreviousStatus(String uid, int status) async {
     print(uid);
     try {
-      // Update the document with the given UID in the 'previous_statuses' collection
       await previousStatusCollection.doc(uid).update({'status': status});
       await previousStatusCollection.doc(uid).update({'messageSent': false});
     } catch (e) {
@@ -139,10 +139,8 @@ class _LiveLogState extends State<LiveLog> {
 
   Future<bool> isMessageSent(String uid) async {
     try {
-      // Retrieve the document with the given UID from the 'previous_statuses' collection
       DocumentSnapshot documentSnapshot =
           await previousStatusCollection.doc(uid).get();
-      // If the document exists and contains a 'messageSent' field, return its value
       if (documentSnapshot.exists) {
         return documentSnapshot['messageSent'] ?? false;
       } else {
@@ -156,7 +154,6 @@ class _LiveLogState extends State<LiveLog> {
 
   Future<void> setMessageSent(String uid) async {
     try {
-      // Update the document with the given UID in the 'previous_statuses' collection
       await previousStatusCollection.doc(uid).update({'messageSent': true});
     } catch (e) {
       print('Error setting message sent status: $e');
@@ -164,7 +161,10 @@ class _LiveLogState extends State<LiveLog> {
   }
 
   void _listenForStatusChanges() {
+
     _databaseReference.onValue.listen((event) async {
+          int checkedOut = 0;
+    int checkedIn = 0;
       if (event.snapshot.value != null) {
         Map<dynamic, dynamic> data =
             event.snapshot.value as Map<dynamic, dynamic>;
@@ -174,22 +174,25 @@ class _LiveLogState extends State<LiveLog> {
           String number = await ParentNum(uid);
           int status = value as int;
 
-          // Retrieve the previous status from Firestore or Realtime Database
+
           int? previousStatus = await getPreviousStatus(uid);
 
-          // Check if the status has changed and the message has not been sent yet
           if (status != previousStatus && !await isMessageSent(uid)) {
-            // Update the previous status in Firestore or Realtime Database
             updatePreviousStatus(uid, status);
 
-            // Rest of your code to handle the status change...
             if (status == 0) {
+              checkedOut++;
               setState(() {
+                
                 message = '$studentName has been Checked out';
+                 checkedOutCount = '$checkedOut';
               });
             } else if (status == 1) {
+              checkedIn++;
               setState(() {
+                
                 message = '$studentName has Checked In';
+                 checkedInCount = '$checkedIn';
               });
             }
             if (await _isPermissionGranted()) {
@@ -198,11 +201,10 @@ class _LiveLogState extends State<LiveLog> {
               } else {
                 _sendMessage(number, message);
               }
-              // Set the flag to indicate that the message has been sent
               setMessageSent(uid);
             } else {
               _getPermission();
-            }           
+            }
           }
           updatePreviousStatus(uid, status);
         });
@@ -235,6 +237,34 @@ class _LiveLogState extends State<LiveLog> {
             color: Color(0xff7364e3),
           ),
         ),
+        actions: [
+          Container(
+            margin: EdgeInsets.only(right: 19),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Total People ",
+                    style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff7364e3),
+                    )),
+                Text("Checked in: "+ checkedInCount,
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 65, 66, 64),
+                    )),
+                Text("Checked out: $checkedOutCount",
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 230, 87, 26),
+                    )),
+              ],
+            ),
+          ),
+        ],
       ),
       body: FirebaseAnimatedList(
           query: _databaseReference,
