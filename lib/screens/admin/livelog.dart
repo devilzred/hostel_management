@@ -88,10 +88,16 @@ class _LiveLogState extends State<LiveLog> {
         color: Colors.green,
         size: 60,
       );
-    } else {
+    } else if (status == "0") {
       return Icon(
         Icons.cancel_outlined,
         color: Colors.redAccent,
+        size: 60,
+      );
+    } else {
+      return Icon(
+        Icons.info,
+        color: Colors.pinkAccent,
         size: 60,
       );
     }
@@ -161,10 +167,9 @@ class _LiveLogState extends State<LiveLog> {
   }
 
   void _listenForStatusChanges() {
-
     _databaseReference.onValue.listen((event) async {
-          int checkedOut = 0;
-    int checkedIn = 0;
+      int checkedOut = 0;
+      int checkedIn = 0;
       if (event.snapshot.value != null) {
         Map<dynamic, dynamic> data =
             event.snapshot.value as Map<dynamic, dynamic>;
@@ -174,7 +179,6 @@ class _LiveLogState extends State<LiveLog> {
           String number = await ParentNum(uid);
           int status = value as int;
 
-
           int? previousStatus = await getPreviousStatus(uid);
 
           if (status != previousStatus && !await isMessageSent(uid)) {
@@ -183,16 +187,14 @@ class _LiveLogState extends State<LiveLog> {
             if (status == 0) {
               checkedOut++;
               setState(() {
-                
                 message = '$studentName has been Checked out';
-                 checkedOutCount = '$checkedOut';
+                checkedOutCount = '$checkedOut';
               });
             } else if (status == 1) {
               checkedIn++;
               setState(() {
-                
                 message = '$studentName has Checked In';
-                 checkedInCount = '$checkedIn';
+                checkedInCount = '$checkedIn';
               });
             }
             if (await _isPermissionGranted()) {
@@ -249,7 +251,7 @@ class _LiveLogState extends State<LiveLog> {
                       fontWeight: FontWeight.bold,
                       color: Color(0xff7364e3),
                     )),
-                Text("Checked in: "+ checkedInCount,
+                Text("Checked in: " + checkedInCount,
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,

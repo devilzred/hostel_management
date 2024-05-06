@@ -176,11 +176,11 @@ class _AttendanceState extends State<Attendance> {
         DatabaseReference dref = FirebaseDatabase.instance.ref("attendance");
         DatabaseReference newChildRef = dref.push();
         await ref.update({
-          "$cardId": isIn ? 1 : 0,
+          "$cardId": isIn ? "1" : "0",
         });
         await newChildRef.set({
           "id": "manual",
-          "status": isIn ? 1 : 0,
+          "status": isIn ? "1" : "0",
           "time": Datetimeformatted,
           "uid": cardId
         });

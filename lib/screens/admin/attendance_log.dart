@@ -46,7 +46,7 @@ class _AttendenceLogState extends State<AttendenceLog> {
   }
 
    getStatuscolor(int status) {
-    if (status == 1) {
+    if (status == "1") {
       return Color.fromARGB(255, 193, 242, 147);
     } else {
       return const Color.fromARGB(255, 244, 186, 168);
@@ -54,7 +54,7 @@ class _AttendenceLogState extends State<AttendenceLog> {
   }
 
   Widget getStatusIcon(int status) {
-    if (status == 1) {
+    if (status == "1") {
       return SvgPicture.asset(
         "assets/images/login-svgrepo-com.svg",
         width: 30,

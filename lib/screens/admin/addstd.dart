@@ -27,13 +27,13 @@ class _AddStudentState extends State<AddPage> {
   //                   color: Color(0x8F7364E3), // Adjust the weight as needed
   //                 ),).toString();
 
-  String dropdownvalue = '12345678';
+  String dropdownvalue = '123';
   String? _selectedCollege;
   String? _selectedCourse;
   List<String>? _courseOptions;
   var cardid = [
-    '12345678',
-    '87654321',
+    '123',
+    '456',
   ];
 
   @override
@@ -135,7 +135,7 @@ class _AddStudentState extends State<AddPage> {
                 }).toList(),
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  labelText: 'Card Id',
+                  labelText: 'Select Card Id',
                   labelStyle: GoogleFonts.poppins(
                     fontWeight: FontWeight.bold,
                     color: Color(0x8F7364E3),

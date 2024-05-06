@@ -1,3 +1,4 @@
+import 'package:HostelApp/screens/admin/adminnoti.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:HostelApp/screens/AuthGate.dart';
@@ -267,62 +268,67 @@ class AdminHomeScreen extends StatelessWidget {
                                 icon: Icons.notifications_active_rounded,
                                 text: 'Notifications',
                                 onTap: () {
-                                  // Add your onTap logic here
-                                },
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            DailyActivityReport()),
+                                            NotificationAdmin()),
                                   );
                                 },
-                                child: CustomContainer(
-                                  icon: Icons.book_rounded,
-                                  text: 'Total Report',
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              DailyActivityReport()),
-                                    );
-                                  },
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ImportantContactsScreen()),
-                                  );
-                                },
-                                child: CustomContainer(
-                                  icon: Icons.attach_money_rounded,
-                                  text: 'Fee Report',
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Feereport()),
-                                    );
-                                  },
-                                ),
                               ),
                             ],
                           ),
+                          // SizedBox(
+                          //   height: 20,
+                          // ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     GestureDetector(
+                          //       onTap: () {
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //       builder: (context) =>
+                                  //           DailyActivityReport()),
+                                  // );
+                          //       },
+                          //       child: CustomContainer(
+                          //         icon: Icons.book_rounded,
+                          //         text: 'Total Report',
+                          //         onTap: () {
+                          //           Navigator.push(
+                          //             context,
+                          //             MaterialPageRoute(
+                          //                 builder: (context) =>
+                          //                     DailyActivityReport()),
+                          //           );
+                          //         },
+                          //       ),
+                          //     ),
+                          //     GestureDetector(
+                          //       onTap: () {
+                          //         Navigator.push(
+                          //           context,
+                          //           MaterialPageRoute(
+                          //               builder: (context) =>
+                          //                   ImportantContactsScreen()),
+                          //         );
+                          //       },
+                          //       child: CustomContainer(
+                          //         icon: Icons.attach_money_rounded,
+                          //         text: 'Fee Report',
+                          //         onTap: () {
+                          //           Navigator.push(
+                          //             context,
+                          //             MaterialPageRoute(
+                          //                 builder: (context) => Feereport()),
+                          //           );
+                          //         },
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                           SizedBox(
                             height: 20,
                           ),
