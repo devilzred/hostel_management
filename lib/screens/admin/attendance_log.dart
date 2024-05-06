@@ -1,73 +1,20 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AttendenceLog extends StatefulWidget {
-  const AttendenceLog({super.key});
+  const AttendenceLog({Key? key});
 
   @override
   State<AttendenceLog> createState() => _AttendenceLogState();
 }
 
 class _AttendenceLogState extends State<AttendenceLog> {
-  var jsonData = '';
-
   final DatabaseReference _databaseReference =
-      FirebaseDatabase.instance.ref().child('attendance');
-
-  ScrollController controller = ScrollController();
-
-  Future<String> NameFinder(String uid) async {
-    CollectionReference students =
-        FirebaseFirestore.instance.collection('student');
-
-    QuerySnapshot querySnapshot =
-        await students.where('cardid', isEqualTo: uid).get();
-
-    if (querySnapshot.docs.isNotEmpty) {
-      var document = querySnapshot.docs.first;
-
-      return "Name: "+document['name'];
-    } else {
-      return "Unknown";
-    }
-  }
-
-  void _scrollDown() {
-    controller.animateTo(
-      controller.position.maxScrollExtent,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.fastOutSlowIn,
-    );
-  }
-
-   getStatuscolor(int status) {
-    if (status == "1") {
-      return Color.fromARGB(255, 193, 242, 147);
-    } else {
-      return const Color.fromARGB(255, 244, 186, 168);
-    }
-  }
-
-  Widget getStatusIcon(int status) {
-    if (status == "1") {
-      return SvgPicture.asset(
-        "assets/images/login-svgrepo-com.svg",
-        width: 30,
-        color: Color.fromARGB(255, 10, 191, 16),
-      );
-    } else {
-      return SvgPicture.asset(
-        "assets/images/logout-svgrepo-com.svg",
-        width: 30,
-        color: Color.fromARGB(255, 237, 13, 13),
-      );
-    }
-  }
+      FirebaseDatabase.instance.reference().child('attendance');
 
   bool _isLoading = true;
 
@@ -80,6 +27,29 @@ class _AttendenceLogState extends State<AttendenceLog> {
         _isLoading = false;
       });
     });
+  }
+
+  Future<String> getName(String uid) async {
+    // Implement your logic to fetch the name from Firestore or any other source
+    return "Name: John Doe";
+  }
+
+  Color getStatusColor(int status) {
+    return status == 1 ? Color.fromARGB(255, 193, 242, 147) : Color.fromARGB(255, 244, 186, 168);
+  }
+
+  Widget getStatusIcon(int status) {
+    return status == 1
+        ? SvgPicture.asset(
+            "assets/images/login-svgrepo-com.svg",
+            width: 30,
+            color: Color.fromARGB(255, 10, 191, 16),
+          )
+        : SvgPicture.asset(
+            "assets/images/logout-svgrepo-com.svg",
+            width: 30,
+            color: Color.fromARGB(255, 237, 13, 13),
+          );
   }
 
   @override
@@ -100,7 +70,7 @@ class _AttendenceLogState extends State<AttendenceLog> {
           },
         ),
         title: Text(
-          'Attendence Log',
+          'Attendance Log',
           style: GoogleFonts.poppins(
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -110,51 +80,43 @@ class _AttendenceLogState extends State<AttendenceLog> {
       ),
       body: _isLoading
           ? Center(
-              child: CircularProgressIndicator(), // Loading indicator
+              child: CircularProgressIndicator(),
             )
-          : Container(
-              height: double.infinity,
-              child: FirebaseAnimatedList(
-                // controller: controller,
-                query: _databaseReference,
-                itemBuilder: (
-                  
-                  BuildContext context,
-                  DataSnapshot snapshot,
-                  Animation<double> _scrollDown,
-                  int index,
-                ) {
-                  Map attendance = snapshot.value as Map;
-                  attendance['key'] = snapshot.key;
-                  int status = attendance['status'] as int;
-                  
-                  return ListTile(
-                    
-                    horizontalTitleGap: 5,
-                    minVerticalPadding: 30,
-                      tileColor: getStatuscolor(status),
-                      trailing: Text(attendance['time'].toString()),
-                      subtitle: Text("Card ID: "+attendance['uid'].toString()),
-                      title: FutureBuilder<String>(
-                        future: NameFinder(attendance['uid'].toString()),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Text(
-                                'Fetching...'); // Placeholder while loading
-                          } else {
-                            return Text(snapshot.data ?? 'Unknown', style: TextStyle( fontWeight: FontWeight.bold),);
-                          }
-                        },
-                      ),
-                      leading: Container(
-                        width: 50,
-                        height: 50,
-                        child: getStatusIcon(status),
-                      ));
-                },
-              ),
+          : Expanded(
+            child: FirebaseAnimatedList(
+              query: _databaseReference,
+              itemBuilder: (
+                BuildContext context,
+                DataSnapshot snapshot,
+                Animation<double> _animation,
+                int index,
+              ) {
+                Map attendance = snapshot.value as Map;
+                int status = attendance['status'] as int;
+          
+                return ListTile(
+                  tileColor: getStatusColor(status),
+                  leading: getStatusIcon(status),
+                  title: FutureBuilder<String>(
+                    future: getName(attendance['uid'].toString()),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Text('Fetching...');
+                      } else {
+                        return Text(
+                          snapshot.data ?? 'Unknown',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        );
+                      }
+                    },
+                  ),
+                  subtitle: Text("Card ID: ${attendance['uid'].toString()}"),
+                  trailing: Text(attendance['time'].toString()),
+                );
+              },
             ),
+          ),
     );
   }
+
 }

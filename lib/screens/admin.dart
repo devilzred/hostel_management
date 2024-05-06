@@ -296,8 +296,8 @@ class AdminHomeScreen extends StatelessWidget {
                                   );
                                 },
                                 child: CustomContainer(
-                                  icon: Icons.book_rounded,
-                                  text: 'Issue Received',
+                                  icon: Icons.sync_problem,
+                                  text: 'Issues Received',
                                   onTap: () {
                                     Navigator.push(
                                       context,
@@ -318,8 +318,8 @@ class AdminHomeScreen extends StatelessWidget {
                                   );
                                 },
                                 child: CustomContainer(
-                                  icon: Icons.attach_money_rounded,
-                                  text: 'Fee Report',
+                                  icon: Icons.notifications_active_sharp,
+                                  text: 'Send Notification',
                                   onTap: () {
                                     Navigator.push(
                                       context,
