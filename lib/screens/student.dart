@@ -477,20 +477,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              // Third row of containers
-                              CustomContainer(
-                                icon: Icons.content_paste_rounded,
-                                text: 'Activity Report',
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          DailyActivityReport(),
-                                    ),
-                                  );
-                                },
-                              ),
+                              
+                              // CustomContainer(
+                              //   icon: Icons.content_paste_rounded,
+                              //   text: 'Activity Report',
+                              //   onTap: () {
+                              //     Navigator.push(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             DailyActivityReport(),
+                              //       ),
+                              //     );
+                              //   },
+                              // ),
                               CustomContainer(
                                 icon: Icons.person_pin_rounded,
                                 text: 'Imp. Contacts',

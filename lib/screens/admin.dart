@@ -18,6 +18,7 @@ import 'package:HostelApp/screens/student/activityrep.dart';
 import 'package:HostelApp/screens/student/contacts.dart';
 import 'package:HostelApp/screens/student/food.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AdminHomeScreen extends StatelessWidget {
   @override
@@ -217,7 +218,9 @@ class AdminHomeScreen extends StatelessWidget {
                                   );
                                 },
                               ),
-                              GestureDetector(
+                              CustomContainer(
+                                icon: Icons.pending_actions_rounded,
+                                text: 'Attendence log',
                                 onTap: () {
                                   Navigator.push(
                                     context,
@@ -225,18 +228,6 @@ class AdminHomeScreen extends StatelessWidget {
                                         builder: (context) => AttendenceLog()),
                                   );
                                 },
-                                child: CustomContainer(
-                                  icon: Icons.pending_actions_rounded,
-                                  text: 'Attendence log',
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              AttendenceLog()),
-                                    );
-                                  },
-                                ),
                               ),
                             ],
                           ),
@@ -273,8 +264,7 @@ class AdminHomeScreen extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            LeaveNotify()),
+                                        builder: (context) => LeaveNotify()),
                                   );
                                 },
                               ),
@@ -324,7 +314,8 @@ class AdminHomeScreen extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => SendNotification()),
+                                          builder: (context) =>
+                                              SendNotification()),
                                     );
                                   },
                                 ),
@@ -358,30 +349,44 @@ class AdminHomeScreen extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              GestureDetector(
+                              CustomContainer(
+                                icon: Icons.photo_camera_rounded,
+                                text: 'Upload Profile',
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            ImportantContactsScreen()),
+                                            UploadPhotoPage()),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => FoodMenuUpload()),
                                   );
                                 },
                                 child: CustomContainer(
-                                  icon: Icons.photo_camera_rounded,
-                                  text: 'Upload Profile',
+                                  icon: Icons.receipt_long_sharp,
+                                  text: 'Total Report',
                                   onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              UploadPhotoPage()),
-                                    );
+                                    _openGoogleSheetsLink();
                                   },
                                 ),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -406,5 +411,19 @@ class AdminHomeScreen extends StatelessWidget {
         builder: (context) => AuthGate(),
       ),
     );
+  }
+
+  void _openGoogleSheetsLink() async {
+    Uri url = Uri.parse(
+        'https://docs.google.com/spreadsheets/d/1N3_EZP4vEatbpnEqhrefUTIwmOt1mWPVl5vXmMfspr0/edit?usp=sharing');
+    try {
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    } catch (e) {
+      print('Error launching URL: $e');
+    }
   }
 }
