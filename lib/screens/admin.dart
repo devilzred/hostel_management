@@ -328,27 +328,36 @@ class AdminHomeScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              GestureDetector(
+                              CustomContainer(
+                                icon: Icons.fastfood_rounded,
+                                text: 'Food Menu',
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => FoodMenuUpload()),
+                                        builder: (context) =>
+                                            FoodMenuUpload()),
                                   );
                                 },
-                                child: CustomContainer(
-                                  icon: Icons.fastfood_rounded,
-                                  text: 'Food Menu',
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              FoodMenuUpload()),
-                                    );
-                                  },
-                                ),
+                                
                               ),
+                              CustomContainer(
+                                icon: Icons.receipt_long_sharp,
+                                text: 'Total Report',
+                                onTap: () {
+                                  _openGoogleSheetsLink();
+                                },
+                              ),
+                              
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              
                               CustomContainer(
                                 icon: Icons.photo_camera_rounded,
                                 text: 'Upload Profile',
@@ -360,30 +369,6 @@ class AdminHomeScreen extends StatelessWidget {
                                             UploadPhotoPage()),
                                   );
                                 },
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => FoodMenuUpload()),
-                                  );
-                                },
-                                child: CustomContainer(
-                                  icon: Icons.receipt_long_sharp,
-                                  text: 'Total Report',
-                                  onTap: () {
-                                    _openGoogleSheetsLink();
-                                  },
-                                ),
                               ),
                             ],
                           ),
