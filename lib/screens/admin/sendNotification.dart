@@ -10,6 +10,7 @@ class SendNotification extends StatelessWidget {
   final TextEditingController matterdes =
       TextEditingController();
   bool isSubmitted = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -47,83 +48,94 @@ class SendNotification extends StatelessWidget {
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(40, 20, 40, 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Title',
-                  style: GoogleFonts.poppins(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff7364e3),
-                  ),
-                ),
-                SizedBox(height: 30),
-                TextField(
-                  controller: mattertitle,
-                  decoration: InputDecoration(
-                    hintText: 'Title of the Matter',
-                    contentPadding: EdgeInsets.all(20.0),
-                    hintStyle: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xB97364E3),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Title',
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff7364e3),
                     ),
-                    border: OutlineInputBorder(),
                   ),
-                  maxLines: 5,
-                ),
-                SizedBox(height: 40),
-                Text(
-                  'Details (Optional)',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff7364e3),
-                  ),
-                ),
-                SizedBox(height: 30),
-                TextField(
-                  controller: matterdes,
-                  decoration: InputDecoration(
-                    hintText: 'Describe the Matter',
-                    contentPadding: EdgeInsets.all(20.0),
-                    hintStyle: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xB97364E3),
-                    ),
-                    border: OutlineInputBorder(),
-                  ),
-                  maxLines: 3,
-                ),
-                SizedBox(height: 40),
-                SizedBox(
-                  width:
-                      double.infinity, // Make button width equal to page width
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _submit(context);
-                      
-                    },
-                    style: ElevatedButton.styleFrom(
-                      // primary: Color(0xff7364e3), // Background color
-                      // onPrimary: Colors.white, // Text color
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8), // Border radius
+                  SizedBox(height: 30),
+                  TextFormField(
+                    controller: mattertitle,
+                    decoration: InputDecoration(
+                      hintText: 'Title of the Matter',
+                      contentPadding: EdgeInsets.all(20.0),
+                      hintStyle: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xB97364E3),
                       ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 16, horizontal: 24), // Button padding
+                      border: OutlineInputBorder(),
                     ),
-                    child: Text(
-                      'Send Notification',
-                      style: GoogleFonts.poppins(
-                          fontSize: 14, // Text size
-                          fontWeight: FontWeight.w600),
+                    maxLines: 5,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter the title';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 40),
+                  Text(
+                    'Details (Optional)',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff7364e3),
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 30),
+                  TextField(
+                    controller: matterdes,
+                    decoration: InputDecoration(
+                      hintText: 'Describe the Matter',
+                      contentPadding: EdgeInsets.all(20.0),
+                      hintStyle: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xB97364E3),
+                      ),
+                      border: OutlineInputBorder(),
+                    ),
+                    maxLines: 3,
+                  ),
+                  SizedBox(height: 40),
+                  SizedBox(
+                    width:
+                        double.infinity, // Make button width equal to page width
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _submit(context);
+                        }
+                        
+                      },
+                      style: ElevatedButton.styleFrom(
+                        // primary: Color(0xff7364e3), // Background color
+                        // onPrimary: Colors.white, // Text color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8), // Border radius
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 16, horizontal: 24), // Button padding
+                      ),
+                      child: Text(
+                        'Send Notification',
+                        style: GoogleFonts.poppins(
+                            fontSize: 14, // Text size
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

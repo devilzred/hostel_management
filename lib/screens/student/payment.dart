@@ -1,6 +1,9 @@
+import 'package:HostelApp/screens/authgate.dart';
+import 'package:HostelApp/screens/student.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:HostelApp/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -261,10 +264,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     color: Color(0xff7364e3),
                   ),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                    );
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                        (route) => false);
                   },
                 ),
                 SizedBox(height: 20),
@@ -300,7 +303,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   text: 'Sign Out',
                   icon: Icons.exit_to_app,
                   onTap: () {
-                    // Navigate to another page (here a simple message is shown)
+                    signOut(context);
                   },
                 ),
               ],
@@ -423,6 +426,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
           color: Color(0xFFFFFFFF),
         ),
         onTap: onTap,
+      ),
+    );
+  }
+
+  Future<void> signOut(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+
+    // Navigate to the login screen
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AuthGate(),
       ),
     );
   }
