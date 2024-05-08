@@ -23,11 +23,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
         ),
         leading: Padding(
-          padding: const EdgeInsets.only(left: 18.0),
-          child: IconButton(
-            icon: Icon(Icons.sort, color: Color(0xff7364e3), size: 40),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
+          padding: const EdgeInsets.only(
+            left: 18.0,
+          ),
+          child: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Icon(Icons.sort, color: Color(0xff7364e3), size: 40),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              );
             },
           ),
         ),

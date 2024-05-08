@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   CollectionReference students =
       FirebaseFirestore.instance.collection('student');
 
-  String userName = "Hadil";
+  // String userName = "Hadil";
   String profilePhotoUrl = "assets/images/profile_photo.jpg";
 
   TextEditingController adminPasswordController = TextEditingController();
@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
               right: 30.0,
             ),
             child: ElevatedButton(
-              onPressed: _onAdminLogin,
+              onPressed: (){},
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 elevation: 0,
@@ -603,10 +603,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Color(0xff7364e3),
                   ),
                   onTap: () {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                        (route) => false);
+                    
                   },
                 ),
                 SizedBox(height: 30),

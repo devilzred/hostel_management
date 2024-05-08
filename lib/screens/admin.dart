@@ -222,11 +222,12 @@ class AdminHomeScreen extends StatelessWidget {
                                 icon: Icons.pending_actions_rounded,
                                 text: 'Attendence log',
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AttendenceLog()),
-                                  );
+                                  _openGoogleSheetsLink();
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //       builder: (context) => AttendenceLog()),
+                                  // );
                                 },
                               ),
                             ],
@@ -342,23 +343,6 @@ class AdminHomeScreen extends StatelessWidget {
                                 
                               ),
                               CustomContainer(
-                                icon: Icons.receipt_long_sharp,
-                                text: 'Total Report',
-                                onTap: () {
-                                  _openGoogleSheetsLink();
-                                },
-                              ),
-                              
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              
-                              CustomContainer(
                                 icon: Icons.photo_camera_rounded,
                                 text: 'Upload Profile',
                                 onTap: () {
@@ -370,8 +354,17 @@ class AdminHomeScreen extends StatelessWidget {
                                   );
                                 },
                               ),
+                              // CustomContainer(
+                              //   icon: Icons.receipt_long_sharp,
+                              //   text: 'Total Report',
+                              //   onTap: () {
+                              //     _openGoogleSheetsLink();
+                              //   },
+                              // ),
+                              
                             ],
                           ),
+                          
                         ],
                       ),
                     ),
