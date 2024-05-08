@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:HostelApp/screens/student.dart';
+import 'package:HostelApp/screens/admin.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Import Firestore
 
 class SendNotification extends StatelessWidget {
@@ -102,7 +103,7 @@ class SendNotification extends StatelessWidget {
                       double.infinity, // Make button width equal to page width
                   child: ElevatedButton(
                     onPressed: () {
-                      _submitIssue(context);
+                      _submit(context);
                       
                     },
                     style: ElevatedButton.styleFrom(
@@ -141,7 +142,7 @@ class SendNotification extends StatelessWidget {
           ),
         ),
         content: Text(
-          'Do you want to leave without submitting the issue?',
+          'Do you want to leave without Sending Notification?',
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.w500,
           ),
@@ -153,10 +154,10 @@ class SendNotification extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => HomeScreen()),
-              );
+            Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => AdminHomeScreen()),
+            (route) => false);
             },
             child: Text('Yes'),
           ),
@@ -166,7 +167,7 @@ class SendNotification extends StatelessWidget {
     return result ?? false; // Return false if result is null
   }
 
-  Future<void> _submitIssue(BuildContext context) async {
+  Future<void> _submit(BuildContext context) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String id = prefs.getString('ID') ?? '';
