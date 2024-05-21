@@ -117,12 +117,12 @@ class _LiveLogState extends State<LiveLog> {
   //   _listenForStatusChanges();
   // }
 
-  Future<int?> getPreviousStatus(String uid) async {
+  Future<String?> getPreviousStatus(String uid) async {
     try {
       DocumentSnapshot documentSnapshot =
           await previousStatusCollection.doc(uid).get();
       if (documentSnapshot.exists) {
-        return documentSnapshot['status'] as int?;
+        return documentSnapshot['status'] ;
       } else {
         return null;
       }
@@ -132,7 +132,7 @@ class _LiveLogState extends State<LiveLog> {
     }
   }
 
-  Future<void> updatePreviousStatus(String uid, int status) async {
+  Future<void> updatePreviousStatus(String uid, String status) async {
     print(uid);
     try {
       await previousStatusCollection.doc(uid).update({'status': status});
@@ -176,20 +176,20 @@ class _LiveLogState extends State<LiveLog> {
           String uid = key.toString();
           String studentName = await NameFinder(uid);
           String number = await ParentNum(uid);
-          int status = value as int;
+          var status = value;
 
-          int? previousStatus = await getPreviousStatus(uid);
+          var previousStatus = await getPreviousStatus(uid);
 
           if (status != previousStatus && !await isMessageSent(uid)) {
             updatePreviousStatus(uid, status);
 
-            if (status == 0) {
+            if (status == '0') {
               checkedOut++;
               setState(() {
                 message = '$studentName has been Checked out';
                 checkedOutCount = '$checkedOut';
               });
-            } else if (status == 1) {
+            } else if (status == '1') {
               checkedIn++;
               setState(() {
                 message = '$studentName has Checked In';
